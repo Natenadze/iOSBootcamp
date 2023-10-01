@@ -174,7 +174,7 @@ var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 numbers.filter { !$0.isMultiple(of: 2) }
 //: ### Task 8
 var numbers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-print(numbers2.map { pow(Decimal($0), 10) })
+print( numbers2.map { $0 * 10 } )
 
 //: ### Task 9
 var printAfterTimer: () -> Void =  {
