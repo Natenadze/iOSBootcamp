@@ -142,7 +142,7 @@ var set4: Set<String> = ["d", "f", "a", "b", "u"]
 print(set3.isSubset(of: set4))
 
 //: ### Task 9
-var array3 = [8, 4, 9, 9, 0, 2]
+var array3 = [8, 4, 9, 5, 0, 8, 2]
 
 var result = "array-ში ყველა ელემენტი განსხვავებულია"
 
