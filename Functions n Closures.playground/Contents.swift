@@ -177,15 +177,17 @@ var numbers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print( numbers2.map { $0 * 10 } )
 
 //: ### Task 9
-var printAfterTimer: () -> Void =  {
+let sequence = [1,2,3,4,5]
+
+var printAfterTimer: ([Int]) -> Void =  { completion in
    
     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-        print([1,2,3,4,5])
+        completion.forEach { print($0) }
     }
     print("wait 3 sec...")
 }
 
-printAfterTimer()
+printAfterTimer(sequence)
 
 // or just
 
