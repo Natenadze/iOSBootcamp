@@ -188,14 +188,6 @@ var printAfterTimer: ([Int]) -> Void =  { completion in
 }
 
 printAfterTimer(sequence)
-
-// or just
-
-DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-    print([6,7,8,9,10])
-}
-
-print("wait 3 sec again...")
 //: ### Task 10
 let chars = ["1","44","-111","0","7","!","13","12","9","mamuka","4"]
 
