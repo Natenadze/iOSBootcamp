@@ -1,5 +1,6 @@
 import UIKit
-
+//: # Structs n Enums
+//: ### Questions
 /*
  1. შექმენით enum-ი სახელით DayOfWeek შესაბამისი ქეისებით. დაწერეთ function რომელიც იღებს ამ ენამის ტიპს. function-მა უნდა და-print-ოს, გადაწოდებული დღე კვირის დღეა თუ დასვენების.
  
@@ -11,10 +12,7 @@ import UIKit
  
  5. შექმენით enum-ი Genre მუსიკის ჟანრის ქეისებით. ამის შემდეგ შექმენით struct Song, with properties: title, artist, duration, genre, description (computied propertie უნდა იყოს description) და publisher (lazy propertie-ად შექმენით publisher). შემდეგ შექმენით თქვენი playlist array რომელსაც Song-ებით შეავსებთ (ზოგ song-ს ჰქონდეს publisher, ზოგს არა). შექმენით function რომელსაც გადააწვდით თქვენს playlist-ს და ჟანრს, function-ს დააბრუნებინეთ მხოლოდ იმ Song-ების array, რომელიც ამ ჟანრის იქნება და შემდეგ დაა-print-ინეთ ეს Song-ები.
  */
-
-
-// MARK: - Task 1
-
+//: ### Task 1
 enum DayOfWeek {
     case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 }
@@ -35,8 +33,7 @@ printDay(day: today)
 printDay(day: tomorrow)
 
 
-// MARK: - Task 2
-
+//: ### Task 2
 enum Weather {
     case sunny(Double)
     case cloudy(Double)
@@ -45,34 +42,33 @@ enum Weather {
 }
 
 
-func recommendActivity(weather: Weather) -> String {
+func recommendClothing(weather: Weather) -> String {
     
     switch weather {
     case .sunny(let celsius):
-        return "Use sunscreen, it's \(celsius)°C."
+        return "Wear sunscreen and light clothing, it's \(celsius)°C."
     case .cloudy(let celsius):
-        return "Nice day to go for the cycling, it's \(celsius)°C."
+        return "It's a good day for cycling, wear comfortable clothes, it's \(celsius)°C."
     case .rainy(let celsius):
-        return "Take an umbrella with you,  it's \(celsius)°C and raining."
+        return "Take an umbrella and wear a waterproof jacket, it's \(celsius)°C and raining."
     case .snowy(let celsius):
-        return "Eat some snow till it's fresh, btw it's \(celsius)°C"
+        return "Dress warmly and wear snow boots, it's \(celsius)°C and snowy."
     }
 }
 
-// Example usage:
+
 let currentWeather = Weather.sunny(28)
-let recommendation = recommendActivity(weather: currentWeather)
+let recommendation = recommendClothing(weather: currentWeather)
 print("recomendation: \(recommendation)")
 
-// MARK: - Task 3
-
+//: ### Task 3
 struct Book {
     let title: String
     let author: String
     let publicationYear: Int
 }
 
-let book1 = Book(title: "The Great Gatsby", 
+let book1 = Book(title: "The Great Gatsby",
                  author: "F. Scott Fitzgerald",
                  publicationYear: 1925)
 
@@ -106,20 +102,16 @@ func filterBooksArrayByYear(books: [Book], year: Int) -> [Book] {
 
 let filteredBooks = filterBooksArrayByYear(books: booksArray, year: 1950)
 
-let titles = filteredBooks.map { $0.title }
+let titles = filteredBooks.map (\.title)
 print(titles)
-print(filteredBooks)
-
-
-// MARK: - Task 4
-
+//: ### Task 4
 struct BankAccount {
     
     let holderName: String
     let accountNumber: String
     var balance: Double
     
-
+    
     // MARK: - Methods
     mutating func deposit(amount: Double) {
         guard amount > 0 else {
@@ -129,13 +121,13 @@ struct BankAccount {
         balance += amount
         print("Deposited $\(amount). New balance: $\(balance)")
     }
-
+    
     mutating func withdraw(amount: Double) {
         guard amount > 0 else {
             print("Invalid withdrawal amount.")
             return
         }
-
+        
         if amount <= balance {
             balance -= amount
             print("Withdrawn $\(amount).")
@@ -143,13 +135,13 @@ struct BankAccount {
             print("Insufficient balance.")
         }
     }
-
+    
     mutating func transfer(amount: Double, toAccount: inout BankAccount) {
         guard amount > 0 else {
             print("Invalid transfer amount. Please enter a positive amount.")
             return
         }
-
+        
         if amount <= balance {
             balance -= amount
             toAccount.balance += amount
@@ -160,17 +152,13 @@ struct BankAccount {
     }
 }
 
-// Example usage:
 var account1 = BankAccount(holderName: "bondo", accountNumber: "GE123456", balance: 1000.0)
 var account2 = BankAccount(holderName: "Jondo", accountNumber: "GE742311", balance: 1500.0)
 
 account1.deposit(amount: 500.0)
 account1.withdraw(amount: 200.0)
 account1.transfer(amount: 300.0, toAccount: &account2)
-
-
-// MARK: - Task 5
-
+//: ### Task 5
 enum Genre {
     case rock, jazz, blues, classical
 }
@@ -183,24 +171,62 @@ struct Song {
     var description: String {
         "\(title) by \(artist), Duration: \(duration) seconds"
     }
-    lazy var publisher: String?  = nil
+    lazy var publisher: String? = nil
 }
 
 
-let song1 = Song(title: "Bohemian Rhapsody", artist: "Queen", duration: 354.0, genre: .rock, publisher: "EMI Records")
+let song1 = Song(title: "Bohemian Rhapsody",
+                 artist: "Queen",
+                 duration: 354.0,
+                 genre: .rock,
+                 publisher: "EMI Records")
 
-var song2 = Song(title: "Kind of Blue", artist: "Miles Davis", duration: 285.0, genre: .jazz)
+var song2 = Song(title: "Kind of Blue",
+                 artist: "Miles Davis",
+                 duration: 285.0,
+                 genre: .jazz)
 song2.publisher = "Columbia Records"
 
+let song3 = Song(title: "Crossroads",
+                 artist: "Cream",
+                 duration: 246.0, 
+                 genre: .rock,
+                 publisher: "Polydor Records")
 
-let song3 = Song(title: "Crossroads", artist: "Cream", duration: 246.0, genre: .rock, publisher: "Polydor Records")
-let song4 = Song(title: "Stairway to Heaven", artist: "Led Zeppelin", duration: 482.0, genre: .rock, publisher: "Atlantic Records")
-let song5 = Song(title: "So What", artist: "Miles Davis", duration: 507.0, genre: .jazz)
-let song6 = Song(title: "The Thrill Is Gone", artist: "B.B. King", duration: 306.0, genre: .blues)
-let song7 = Song(title: "Moonlight Sonata", artist: "Ludwig van Beethoven", duration: 690.0, genre: .classical)
-let song8 = Song(title: "Comfortably Numb", artist: "Pink Floyd", duration: 384.0, genre: .rock)
-let song9 = Song(title: "My Favorite Things", artist: "John Coltrane", duration: 424.0, genre: .jazz)
-let song10 = Song(title: "Sweet Home Chicago", artist: "Robert Johnson", duration: 194.0, genre: .blues)
+let song4 = Song(title: "Stairway to Heaven",
+                 artist: "Led Zeppelin",
+                 duration: 482.0,
+                 genre: .rock,
+                 publisher: "Atlantic Records")
+
+let song5 = Song(title: "So What",
+                 artist: "Miles Davis",
+                 duration: 507.0,
+                 genre: .jazz)
+
+let song6 = Song(title: "The Thrill Is Gone",
+                 artist: "B.B. King",
+                 duration: 306.0,
+                 genre: .blues)
+
+let song7 = Song(title: "Moonlight Sonata",
+                 artist: "Ludwig van Beethoven", duration: 690.0,
+                 genre: .classical)
+
+let song8 = Song(title: "Comfortably Numb",
+                 artist: "Pink Floyd",
+                 duration: 384.0,
+                 genre: .rock)
+
+let song9 = Song(title: "My Favorite Things",
+                 artist: "John Coltrane",
+                 duration: 424.0,
+                 genre: .jazz)
+
+let song10 = Song(title: "Sweet Home Chicago",
+                  artist: "Robert Johnson",
+                  duration: 194.0,
+                  genre: .blues)
 
 
 let allSongs = [song1, song2, song3, song4, song5, song6, song7, song8, song9, song10]
@@ -210,8 +236,7 @@ func filterSongsByGenre(songs: [Song], genre: Genre) -> [Song] {
     songs.filter {$0.genre == genre}
 }
 
-let rockSongs = filterSongsByGenre(songs: allSongs, genre: .rock)
+let rockSongs: [Song] = filterSongsByGenre(songs: allSongs, genre: .rock)
 
-let songTitles = rockSongs.map { $0.title }
-print(songTitles)
-print(rockSongs)
+let artist = rockSongs.map (\.artist)
+print(artist)
