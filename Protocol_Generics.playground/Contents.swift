@@ -102,12 +102,13 @@ struct Hero: Superhero {
     var alias: String
     var isEvil: Bool
     var superPowers: [String: Int]
+    var hasAttack: Bool  = true
     var hasSuperPowers: Bool {
         !superPowers.isEmpty
     }
     
-    var hasAttack: Bool  = true
-    
+    // MARK: - Init
+
     init(name: String, alias: String, isEvil: Bool, superPowers: [String: Int]) {
         self.name = name
         self.alias = alias
@@ -115,12 +116,14 @@ struct Hero: Superhero {
         self.superPowers = superPowers
     }
     
+    // MARK: - Methods
+
     mutating func attack(target: SuperEnemy) -> Int {
         if hasAttack {
             let damage = Int.random(in: 20...40)
             target.hitPoints -= damage
             hasAttack = false
-            print("\(name) used attack power. Enemy has \(target.hitPoints) points left")
+            print("\(name) used attack power. \(target.name) has \(target.hitPoints) points left")
         } else {
             print(print("\(name) has No attack powers left"))
         }
@@ -132,7 +135,7 @@ struct Hero: Superhero {
         if let (power, damage) = self.superPowers.randomElement() {
             target.hitPoints -= damage
             self.superPowers.removeValue(forKey: power)
-            print("\(name) used superPower. Enemy has \(target.hitPoints) points left")
+            print("\(name) used superPower. \(target.name) has \(target.hitPoints) points left")
             print("\(name) has \(superPowers.count) superpowers left")
         } else {
             print("\(name) has No superpowers left")
@@ -145,17 +148,15 @@ struct Hero: Superhero {
 
 
 // Create 2 SuperHero
-var spiderMan = Hero(name: "Spider-Man", alias: "Bondo", isEvil: false, superPowers: ["Web Shoot": 30, "Spider Sense": 25])
-var bondo = Hero(name: "Bondo", alias: "Spider-Man", isEvil: false, superPowers: ["Taburetka Hit": 35])
+let Ivan = SuperEnemy(name: "Bidzina", hitPoints: 1000)
 
+var hero1 = Hero(name: "Hero1", alias: "Hero2", isEvil: false, superPowers: ["power1": 15, "power2": 25])
+var hero2 = Hero(name: "Hero2", alias: "Hero1", isEvil: true, superPowers: ["power1": 35])
 
-
-
-//let damage1 = spiderMan.attack(target: enemy)
-//print("Spider-Man attacked with \(damage1) damage. \(enemy.name) has \(enemy.hitPoints) hit points left.")
 //
-//let damage2 = bondo.performSuperPower(target: enemy)
-//print("Bondo used a superpower with \(damage2) damage. \(enemy.name) has \(enemy.hitPoints) hit points left.")
+let damage1 = hero1.attack(target: Ivan)
+let damage2 = hero2.performSuperPower(target: Ivan)
+
 
 
 
@@ -176,6 +177,10 @@ class SuperheroSquad<T: Superhero> {
 }
 
 var superheroArray = [Hero]()
+
+var spiderMan = Hero(name: "Spider-Man", alias: "Bondo", isEvil: false, superPowers: ["Web Shoot": 30, "Spider Sense": 25])
+var bondo = Hero(name: "Bondo", alias: "Spider-Man", isEvil: false, superPowers: ["Taburetka Hit": 35])
+
 superheroArray.append(spiderMan)
 superheroArray.append(bondo)
 
