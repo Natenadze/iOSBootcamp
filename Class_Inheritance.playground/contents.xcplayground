@@ -3,6 +3,6 @@
     <pages>
         <page name='Library'/>
         <page name='Shopping'/>
-        <page name='Inheritance'/>
+        <page name='Zoo'/>
     </pages>
 </playground>
