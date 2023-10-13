@@ -132,13 +132,14 @@ struct Hero: Superhero {
     }
     
     mutating func performSuperPower(target: SuperEnemy) -> Int {
-        if let (power, damage) = self.superPowers.randomElement() {
+        if let (power, damage) = superPowers.randomElement() {
             target.hitPoints -= damage
             self.superPowers.removeValue(forKey: power)
             print("\(name) used superPower. \(target.name) has \(target.hitPoints) points left")
             print("\(name) has \(superPowers.count) superpowers left")
         } else {
-            print("\(name) has No superpowers left")
+            // MARK: - Attack
+
         }
         
         return target.hitPoints
@@ -200,6 +201,7 @@ func simulateShowdown(squad: SuperheroSquad<Hero>, enemy: SuperEnemy) {
     var count = AllPowersCount(heroes: squad.superheroes)
     
     while !enemy.isDefeated && count > 0 {
+        
         if (count - squad.superheroes.count) > 0 {
             if let heroIndex = squad.superheroes.firstIndex(where: { $0.hasSuperPowers }) {
                 var hero = squad.superheroes[heroIndex]
@@ -216,6 +218,7 @@ func simulateShowdown(squad: SuperheroSquad<Hero>, enemy: SuperEnemy) {
             }
         }
     }
+    
 
     printFinalResult(heroesWon: enemy.isDefeated)
 }
