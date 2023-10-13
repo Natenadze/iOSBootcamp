@@ -27,6 +27,12 @@ class ControlCenter: StationModule {
     private var isLockedDown: Bool = false
     var securityCode: String = ""
     
+    // MARK: - Init
+    init(securityCode: String, moduleName: String) {
+        self.securityCode = securityCode
+        super.init(moduleName: moduleName)
+    }
+
     // MARK: - Methods
     func lockdown(withPassword password: String) {
         if password == securityCode {
@@ -117,16 +123,10 @@ class Drone {
 
 class OrbitronSpaceStation {
     
-    let controlCenter: ControlCenter
-    let researchLab: ResearchLab
-    let lifeSupportSystem: LifeSupportSystem
+    let controlCenter = ControlCenter(securityCode: "12345", moduleName: "controlCentModule")
+    let researchLab = ResearchLab(moduleName: "researchLabModule")
+    let lifeSupportSystem = LifeSupportSystem(oxygenLevel: 150, moduleName: "lifeSupportSystemModule")
 
-    // MARK: - Init
-    init(controlCenter: ControlCenter, researchLab: ResearchLab, lifeSupportSystem: LifeSupportSystem) {
-        self.controlCenter = controlCenter
-        self.researchLab = researchLab
-        self.lifeSupportSystem = lifeSupportSystem
-    }
 
     // MARK: - Methods
     func lockdown(withPassword password: String) {
@@ -169,14 +169,11 @@ class MissionControl {
 
 // MARK: - 9
 
-let controlCent = ControlCenter(moduleName: "controlCentModule")
-controlCent.securityCode = "12345"
-let researchLab = ResearchLab(moduleName: "researchLabModule")
-let lifeSupportSystem = LifeSupportSystem(oxygenLevel: 150, moduleName: "lifeSupportSystemModule")
+
 
 
 //  შევქმნათ OrbitronSpaceStation,
-let oss = OrbitronSpaceStation(controlCenter: controlCent, researchLab: researchLab, lifeSupportSystem: lifeSupportSystem)
+let oss = OrbitronSpaceStation()
 
 // შევქმნათ MissionControl-ი,
 let ms = MissionControl()
@@ -189,28 +186,28 @@ ms.requestControlCenterStatus()
 
 //  controlCenter-ის, researchLab-ის და lifeSupport-ის მოდულების დრონებს დავურიგოთ თასქები.
 let stationModule1 = StationModule(moduleName: "stationModule1", drone: nil)
-controlCent.drone = Drone(assignedModule: stationModule1)
-controlCent.assignTaskToDrone("task1")
+oss.controlCenter.drone = Drone(assignedModule: stationModule1)
+oss.controlCenter.assignTaskToDrone("task1")
 
 let stationModule2 = StationModule(moduleName: "stationModule2", drone: nil)
-researchLab.drone = Drone(assignedModule: stationModule2)
-researchLab.assignTaskToDrone("task2")
+oss.researchLab.drone = Drone(assignedModule: stationModule2)
+oss.researchLab.assignTaskToDrone("task2")
 
 let stationModule3 = StationModule(moduleName: "stationModule3", drone: nil)
-lifeSupportSystem.drone = Drone(assignedModule: stationModule3)
-lifeSupportSystem.assignTaskToDrone("task3")
+oss.lifeSupportSystem.drone = Drone(assignedModule: stationModule3)
+oss.lifeSupportSystem.assignTaskToDrone("task3")
 
 //  შევამოწმოთ დრონების სტატუსები.
-controlCent.drone?.checkAndPrintTaskStatus()
-researchLab.drone?.checkAndPrintTaskStatus()
-lifeSupportSystem.drone?.checkAndPrintTaskStatus()
+oss.controlCenter.drone?.checkAndPrintTaskStatus()
+oss.researchLab.drone?.checkAndPrintTaskStatus()
+oss.lifeSupportSystem.drone?.checkAndPrintTaskStatus()
 
 
 //  შევამოწმოთ ჟანგბადის რაოდენობა.
-lifeSupportSystem.reportOxygenStatus()
+oss.lifeSupportSystem.reportOxygenStatus()
 
 // შევამოწმოთ ლოქდაუნის ფუნქციონალი და შევამოწმოთ დაილოქა თუ არა ხომალდი სწორი პაროლი შევიყვანეთ თუ არა.
 
-controlCent.printLockdownStatus()
-controlCent.lockdown(withPassword: "12345")
-controlCent.printLockdownStatus()
+oss.controlCenter.printLockdownStatus()
+oss.controlCenter.lockdown(withPassword: "12345")
+oss.controlCenter.printLockdownStatus()
