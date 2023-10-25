@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     let sizeTitle = UILabel()
     let priceTitle = UILabel()
     let bottomPriceLabel = UILabel()
-
+    
     
     // View
     let imageView = UIImageView(image: UIImage(named: "cappuccino"))
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     let bottomMainStack = UIStackView()
     let bottomVerticalStack = UIStackView()
     
-
+    
     
     // MARK: - life Cycle
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ extension ViewController {
         middlePartStyleConfig()
         bottomPartStyleConfig()
     }
-
+    
     func layout() {
         addSubviews()
         activateTopPartConstraints()
@@ -88,8 +88,7 @@ extension ViewController {
 extension ViewController {
     
     func translateMaskIntoConstraints() {
-        mugButton.translatesAutoresizingMaskIntoConstraints = false
-        dropButton.translatesAutoresizingMaskIntoConstraints = false
+        navBarStack.translatesAutoresizingMaskIntoConstraints = false
         titleStack.translatesAutoresizingMaskIntoConstraints = false
         ratingStack.translatesAutoresizingMaskIntoConstraints = false
         descriptionStack.translatesAutoresizingMaskIntoConstraints = false
@@ -109,13 +108,15 @@ extension ViewController {
         ratingStarIcon.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
-        sSizeButton.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         divider.translatesAutoresizingMaskIntoConstraints = false
         priceTitle.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func topPartStyleConfig() {
+        navBarStack.distribution = .equalSpacing
+        
+        // backButton
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backButton.tintColor = .black
         
@@ -133,7 +134,7 @@ extension ViewController {
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
     }
-      
+    
     func middlePartStyleConfig() {
         // titleStack
         titleStack.axis = .vertical
@@ -200,11 +201,11 @@ extension ViewController {
     }
     
     func bottomPartStyleConfig() {
-       
+        
         // size Title
         sizeTitle.text = "Size"
         sizeTitle.font = .boldSystemFont(ofSize: 16)
-
+        
         // size Buttons
         sSizeButton.createSizeButton(buttonName: CoffeeSize.small.rawValue)
         mSizeButton.createSizeButton(buttonName: CoffeeSize.medium.rawValue)
@@ -233,9 +234,11 @@ extension ViewController {
 extension ViewController {
     
     func addSubviews() {
-        view.addSubview(backButton)
-        view.addSubview(detailLabel)
-        view.addSubview(heartButton)
+        navBarStack.addArrangedSubview(backButton)
+        navBarStack.addArrangedSubview(detailLabel)
+        navBarStack.addArrangedSubview(heartButton)
+        view.addSubview(navBarStack)
+        //
         view.addSubview(imageView)
         //
         titleStack.addArrangedSubview(titleLabel)
@@ -257,8 +260,7 @@ extension ViewController {
         descriptionStack.addArrangedSubview(descriptionTitle)
         descriptionStack.addArrangedSubview(descriptionLabel)
         view.addSubview(descriptionStack)
-        
-       //
+        //
         sizeStack.addArrangedSubview(sizeTitle)
         sizeStack.addArrangedSubview(sizeButtonStack)
         sizeButtonStack.addArrangedSubview(sSizeButton)
@@ -279,24 +281,17 @@ extension ViewController {
     
     func activateTopPartConstraints() {
         NSLayoutConstraint.activate([
+            // navBar
+            navBarStack.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
+            navBarStack.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: navBarStack.trailingAnchor, multiplier: 4),
+            
             // backButton
-            backButton.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
-            backButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             backButton.heightAnchor.constraint(equalToConstant: 20),
             backButton.widthAnchor.constraint(equalToConstant: 12),
             
-            // detailLabel
-            detailLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
-            detailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            // heartView
-            heartButton.topAnchor.constraint(equalTo: detailLabel.topAnchor),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: heartButton.trailingAnchor, multiplier: 4),
-            heartButton.heightAnchor.constraint(equalToConstant: 24),
-            heartButton.widthAnchor.constraint(equalToConstant: 24),
-            
             // imageView
-            imageView.topAnchor.constraint(equalToSystemSpacingBelow: detailLabel.bottomAnchor, multiplier: 3),
+            imageView.topAnchor.constraint(equalToSystemSpacingBelow: navBarStack.bottomAnchor, multiplier: 3),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             view.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 30),
             imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.278),
@@ -312,16 +307,10 @@ extension ViewController {
             // ratingStack
             ratingStack.topAnchor.constraint(equalTo: ratingStarIcon.topAnchor),
             ratingStack.leadingAnchor.constraint(equalTo: ratingStarIcon.trailingAnchor, constant: 4),
-            
-            mugButton.widthAnchor.constraint(equalToConstant: 28),
-            mugButton.heightAnchor.constraint(equalToConstant: 32),
-            
-            dropButton.widthAnchor.constraint(equalToConstant: 28),
-            dropButton.heightAnchor.constraint(equalToConstant: 32),
-            
+            //
             middleRightStack.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             middleRightStack.bottomAnchor.constraint(equalTo: ratingStack.bottomAnchor),
-            ])
+        ])
     }
     
     func activateBottomPartConstraints() {
