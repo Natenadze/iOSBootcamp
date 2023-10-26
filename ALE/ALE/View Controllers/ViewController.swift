@@ -7,52 +7,52 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     // MARK: - Properties
-    let product: Coffee = .initial
+    private let product: Coffee
     
     // model properties
-    let titleLabel = UILabel()
-    let subTitleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let ratingLabel = UILabel()
-    let ratingQuantityLabel = UILabel()
-    let priceLabel = UILabel()
+    private let titleLabel          = UILabel()
+    private let subTitleLabel       = UILabel()
+    private let descriptionLabel    = UILabel()
+    private let ratingLabel         = UILabel()
+    private let ratingQuantityLabel = UILabel()
+    private let priceLabel          = UILabel()
     
     // buttons
-    let backButton = UIButton()
-    let heartButton = UIButton()
-    let mugButton = UIButton()
-    let dropButton = UIButton()
-    let sSizeButton = UIButton()
-    let mSizeButton = UIButton()
-    let lSizeButton = UIButton()
-    let buyButton = UIButton()
+    private let backButton  = UIButton()
+    private let heartButton = UIButton()
+    private let mugButton   = UIButton()
+    private let dropButton  = UIButton()
+    private let sSizeButton = UIButton()
+    private let mSizeButton = UIButton()
+    private let lSizeButton = UIButton()
+    private let buyButton   = UIButton()
     
     // labels
-    let detailLabel = UILabel()
-    let descriptionTitle = UILabel()
-    let sizeTitle = UILabel()
-    let priceTitle = UILabel()
-    let bottomPriceLabel = UILabel()
+    private let detailLabel      = UILabel()
+    private let descriptionTitle = UILabel()
+    private let sizeTitle        = UILabel()
+    private let priceTitle       = UILabel()
+    private let bottomPriceLabel = UILabel()
     
     
     // View
-    let imageView = UIImageView(image: UIImage(named: "cappuccino"))
-    let ratingStarIcon = UIImageView()
-    let divider = UIView()
+    private let imageView = UIImageView(image: UIImage(named: "cappuccino"))
+    private let ratingStarIcon = UIImageView()
+    private let divider = UIView()
     
     // stacks
-    let navBarStack = UIStackView()
-    let titleStack = UIStackView()
-    let ratingStack = UIStackView()
-    let middleRightStack = UIStackView()
-    let descriptionStack = UIStackView()
-    let sizeStack = UIStackView()
-    let sizeButtonStack = UIStackView()
-    let bottomMainStack = UIStackView()
-    let bottomVerticalStack = UIStackView()
+    private let navBarStack      = UIStackView()
+    private let titleStack       = UIStackView()
+    private let ratingStack      = UIStackView()
+    private let middleRightStack = UIStackView()
+    private let descriptionStack = UIStackView()
+    private let sizeStack        = UIStackView()
+    private let sizeButtonStack  = UIStackView()
+    private let bottomMainStack  = UIStackView()
+    private let bottomVerticalStack = UIStackView()
     
     
     
@@ -63,20 +63,31 @@ class ViewController: UIViewController {
         layout()
     }
     
+    // MARK: - init
+    init(product: Coffee) {
+        self.product = product
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
 
 // MARK: - Style & Layout
 
 extension ViewController {
     
-    func style() {
+    private func style() {
         translateMaskIntoConstraints()
         topPartStyleConfig()
         middlePartStyleConfig()
         bottomPartStyleConfig()
     }
     
-    func layout() {
+    private func layout() {
         addSubviews()
         activateTopPartConstraints()
         activateBottomPartConstraints()
@@ -87,7 +98,7 @@ extension ViewController {
 
 extension ViewController {
     
-    func translateMaskIntoConstraints() {
+    private func translateMaskIntoConstraints() {
         navBarStack.translatesAutoresizingMaskIntoConstraints = false
         titleStack.translatesAutoresizingMaskIntoConstraints = false
         ratingStack.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +124,7 @@ extension ViewController {
         priceTitle.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func topPartStyleConfig() {
+    private func topPartStyleConfig() {
         navBarStack.distribution = .equalSpacing
         
         // backButton
@@ -135,7 +146,7 @@ extension ViewController {
         imageView.clipsToBounds = true
     }
     
-    func middlePartStyleConfig() {
+    private func middlePartStyleConfig() {
         // titleStack
         titleStack.axis = .vertical
         titleStack.spacing = 8
@@ -200,7 +211,7 @@ extension ViewController {
         divider.backgroundColor = .gray
     }
     
-    func bottomPartStyleConfig() {
+    private func bottomPartStyleConfig() {
         
         // size Title
         sizeTitle.text = "Size"
@@ -233,7 +244,7 @@ extension ViewController {
 
 extension ViewController {
     
-    func addSubviews() {
+    private func addSubviews() {
         navBarStack.addArrangedSubview(backButton)
         navBarStack.addArrangedSubview(detailLabel)
         navBarStack.addArrangedSubview(heartButton)
@@ -279,7 +290,7 @@ extension ViewController {
         view.addSubview(bottomMainStack)
     }
     
-    func activateTopPartConstraints() {
+    private func activateTopPartConstraints() {
         NSLayoutConstraint.activate([
             // navBar
             navBarStack.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
@@ -313,7 +324,7 @@ extension ViewController {
         ])
     }
     
-    func activateBottomPartConstraints() {
+    private func activateBottomPartConstraints() {
         NSLayoutConstraint.activate([
             // divider
             divider.heightAnchor.constraint(equalToConstant: 1),
@@ -349,7 +360,7 @@ extension ViewController {
 // MARK: - Preview
 
 #Preview {
-    ViewController()
+    ViewController(product: Coffee.initial)
 }
 
 
