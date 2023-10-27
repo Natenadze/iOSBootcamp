@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
 
-        let viewController = ViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let vc = SignInVC()
+        let navController = UINavigationController(rootViewController: vc)
 
-        window?.rootViewController = navigationController
+        window?.rootViewController = navController
 
         return true
     }
