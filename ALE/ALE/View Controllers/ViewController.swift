@@ -293,6 +293,7 @@ extension ViewController {
     private func activateTopPartConstraints() {
         NSLayoutConstraint.activate([
             // navBar
+            
             navBarStack.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
             navBarStack.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: navBarStack.trailingAnchor, multiplier: 4),
