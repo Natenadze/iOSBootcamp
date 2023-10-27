@@ -13,7 +13,9 @@ final class SignInVC: UIViewController {
     private let backgroundImageView = UIImageView()
     
     //
+    private let superStack = UIStackView()
     private let mainStackView = UIStackView()
+    private let bottomStack = UIStackView()
     private let profilePictureAndSignInStack = UIStackView()
     
     private let profileImageView = UIImageView()
@@ -85,11 +87,16 @@ extension SignInVC {
         linkedInIconButton.translatesAutoresizingMaskIntoConstraints = false
         doNotHaveAccountLabel.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
         
         doNotHaveAccountPlusSignUpButtonStack.translatesAutoresizingMaskIntoConstraints = false
 
         
         // MARK: -
+        
+        superStack.axis = .vertical
+        superStack.spacing = 16
+        
         signInButton.setTitle("Sign in", for: .normal)
         signInButton.tintColor = .white
         signInButton.backgroundColor = .systemBlue
@@ -99,10 +106,16 @@ extension SignInVC {
         orLabel.text = "Or"
         orLabel.textAlignment = .center
         
+        
+        // MARK: - Bottom Stack
+
+        bottomStack.axis = .vertical
+        bottomStack.spacing = 12
+        bottomStack.alignment = .center
+        
         //
         socMediaButtonsStack.spacing = 12
-//        socMediaButtonsStack.alignment = .center
-        socMediaButtonsStack.distribution = .equalSpacing
+
         
         
         googleIconButton.setImage(UIImage(named: "google"), for: .normal)
@@ -131,13 +144,16 @@ extension SignInVC {
         socMediaButtonsStack.addArrangedSubview(facebookIconButton)
         socMediaButtonsStack.addArrangedSubview(linkedInIconButton)
         
-        mainStackView.addArrangedSubview(socMediaButtonsStack)
+        bottomStack.addArrangedSubview(socMediaButtonsStack)
         
         doNotHaveAccountPlusSignUpButtonStack.addArrangedSubview(doNotHaveAccountLabel)
         doNotHaveAccountPlusSignUpButtonStack.addArrangedSubview(signUpButton)
-        mainStackView.addArrangedSubview(doNotHaveAccountPlusSignUpButtonStack)
+        bottomStack.addArrangedSubview(doNotHaveAccountPlusSignUpButtonStack)
         
-        view.addSubview(mainStackView)
+        superStack.addArrangedSubview(mainStackView)
+        superStack.addArrangedSubview(bottomStack)
+        
+        view.addSubview(superStack)
         
         // MARK: -
         untilForgotYourPasswordConstraints()
@@ -165,6 +181,7 @@ extension SignInVC {
         
         textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         forgotPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
+        superStack.translatesAutoresizingMaskIntoConstraints = false
         
         
         // Stacks
@@ -238,10 +255,10 @@ extension SignInVC {
             profileImageView.widthAnchor.constraint(equalToConstant: 160),
             
             //main Stack
-            mainStackView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 4),
-            mainStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: mainStackView.trailingAnchor, multiplier: 4),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: mainStackView.bottomAnchor, multiplier: 12),
+            superStack.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 4),
+            superStack.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: superStack.trailingAnchor, multiplier: 4),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: superStack.bottomAnchor, multiplier: 12),
             
             
             
