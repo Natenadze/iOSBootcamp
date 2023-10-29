@@ -13,6 +13,8 @@
 		5D80A5FF2AEE589000276E6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D80A5FD2AEE589000276E6C /* LaunchScreen.storyboard */; };
 		5DFAEB0B2AEE5A14004148A5 /* AddNewMusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAEB0A2AEE5A14004148A5 /* AddNewMusicVC.swift */; };
 		5DFAEB0D2AEE5A3E004148A5 /* MusicDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAEB0C2AEE5A3E004148A5 /* MusicDetailsVC.swift */; };
+		5DFAEB112AEE6219004148A5 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAEB102AEE6219004148A5 /* MusicModel.swift */; };
+		5DFAEB142AEE6345004148A5 /* MusicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAEB132AEE6345004148A5 /* MusicCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		5D80A6002AEE589000276E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DFAEB0A2AEE5A14004148A5 /* AddNewMusicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMusicVC.swift; sourceTree = "<group>"; };
 		5DFAEB0C2AEE5A3E004148A5 /* MusicDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailsVC.swift; sourceTree = "<group>"; };
+		5DFAEB102AEE6219004148A5 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
+		5DFAEB132AEE6345004148A5 /* MusicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				5DFAEB072AEE5905004148A5 /* App */,
+				5DFAEB122AEE623C004148A5 /* Model */,
+				5DFAEB152AEE6348004148A5 /* View */,
 				5DFAEB082AEE590D004148A5 /* Controllers */,
 				5DFAEB092AEE5919004148A5 /* Files */,
 				5D80A5FD2AEE589000276E6C /* LaunchScreen.storyboard */,
@@ -89,6 +95,22 @@
 				5D80A5FB2AEE589000276E6C /* Assets.xcassets */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		5DFAEB122AEE623C004148A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5DFAEB102AEE6219004148A5 /* MusicModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5DFAEB152AEE6348004148A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5DFAEB132AEE6345004148A5 /* MusicCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,9 +184,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D80A5F72AEE588F00276E6C /* MainVC.swift in Sources */,
+				5DFAEB142AEE6345004148A5 /* MusicCell.swift in Sources */,
 				5D80A5F32AEE588F00276E6C /* AppDelegate.swift in Sources */,
 				5DFAEB0B2AEE5A14004148A5 /* AddNewMusicVC.swift in Sources */,
 				5DFAEB0D2AEE5A3E004148A5 /* MusicDetailsVC.swift in Sources */,
+				5DFAEB112AEE6219004148A5 /* MusicModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
