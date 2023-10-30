@@ -105,11 +105,16 @@ extension MainVC: UITableViewDelegate {
         let vc = MusicDetailsVC(image: image, song: title)
         show(vc, sender: self)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
 }
 
+// MARK: - protocol Conformance
 
 extension MainVC: AddNewMusicDelegate {
-    func addMusic(music: Music) {
+    func addMusic(_ music: Music) {
         musicList.append(music)
         tableView.reloadData()
     }

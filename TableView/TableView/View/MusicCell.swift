@@ -32,11 +32,11 @@ class MusicCell: UITableViewCell {
     }
 }
 
+// MARK: - extension
 
 extension MusicCell {
     
     func cellStyle() {
-        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         musicImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -51,14 +51,16 @@ extension MusicCell {
         
         // MARK: -
         NSLayoutConstraint.activate([
-            musicImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            
+            musicImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             musicImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            musicImageView.heightAnchor.constraint(equalToConstant: 60),
             musicImageView.widthAnchor.constraint(equalTo: musicImageView.heightAnchor, multiplier: 0.75),
-            musicImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 60),
+            
             
             titleLabel.leadingAnchor.constraint(equalTo: musicImageView.trailingAnchor, constant: 8),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
         ])
     }
 }

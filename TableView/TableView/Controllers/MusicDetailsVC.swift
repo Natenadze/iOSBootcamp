@@ -22,6 +22,8 @@ class MusicDetailsVC: UIViewController {
         layout()
     }
     
+    // MARK: - init
+
     init(image: UIImage, song: String) {
         self.albumImage.image = image
         self.songTitle.text = song
