@@ -49,10 +49,8 @@ extension MusicCell {
         contentView.addSubview(musicImageView)
         contentView.addSubview(titleLabel)
         
-        // MARK: -
         NSLayoutConstraint.activate([
-            
-            musicImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            musicImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2),
             musicImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             musicImageView.heightAnchor.constraint(equalToConstant: 60),
             musicImageView.widthAnchor.constraint(equalTo: musicImageView.heightAnchor, multiplier: 0.75),
