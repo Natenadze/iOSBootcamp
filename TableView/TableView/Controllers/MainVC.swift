@@ -40,7 +40,14 @@ class MainVC: UIViewController {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func goToMusicDetailsVC(index: Int) {
+        let image = musicList[index].image
+        let title = musicList[index].title
+        let vc = MusicDetailsVC(image: image, song: title)
+        show(vc, sender: self)
 
+    }
     
     
 }
@@ -63,7 +70,6 @@ extension MainVC {
             target: self,
             action: #selector(plusButtonTapped)
         )
-
         
         navigationItem.rightBarButtonItem = plusButton
         
@@ -109,16 +115,32 @@ extension MainVC: UITableViewDataSource {
 // MARK: - tableView Delegate
 
 extension MainVC: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let image = musicList[indexPath.row].image
-        let title = musicList[indexPath.row].title
-        let vc = MusicDetailsVC(image: image, song: title)
-        show(vc, sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+        goToMusicDetailsVC(index: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = .boldSystemFont(ofSize: 20)
+        titleLabel.text = "Songs"
+        
+        headerView.addSubview(titleLabel)
+        
+        titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+        
+        return headerView
+    }
+    
 }
 
 // MARK: - protocol Conformance
