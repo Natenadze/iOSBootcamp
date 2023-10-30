@@ -94,6 +94,16 @@ extension MainVC: UITableViewDataSource {
         cell.configure(with: music)
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            musicList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
 }
 
 // MARK: - tableView Delegate
