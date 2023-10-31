@@ -10,10 +10,13 @@ import UIKit
 class MainVC: UIViewController {
     
     // MARK: - Properties
+    let searchBar = UISearchBar()
+    
     let tableView = UITableView()
     var plusButton = UIBarButtonItem()
     var editButton = UIBarButtonItem()
     var musicList: [Music] = []
+    var filteredMusicList: [Music] = []
     
     
     // MARK: - lifeCycle
@@ -26,6 +29,7 @@ class MainVC: UIViewController {
     // MARK: - init
     init(musicList: [Music]) {
         self.musicList = musicList
+        self.filteredMusicList = musicList
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,6 +68,11 @@ extension MainVC {
     
     
     func style() {
+        searchBar.searchBarStyle = .default
+        searchBar.placeholder = "Search Music"
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        
         tableView.frame = view.bounds
         tableView.dataSource = self
         tableView.delegate = self
@@ -99,12 +108,12 @@ extension MainVC {
 extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        musicList.count
+        filteredMusicList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell", for: indexPath) as! MusicCell
-        let music = musicList[indexPath.row]
+        let music = filteredMusicList[indexPath.row]
         cell.configure(with: music)
         return cell
     }
@@ -113,7 +122,7 @@ extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            musicList.remove(at: indexPath.row)
+            filteredMusicList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -135,29 +144,51 @@ extension MainVC: UITableViewDelegate {
     
     
     // MARK: - Header
-    func setupTableViewHeader() {
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            60
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            
-            let headerView = UIView()
-            let titleLabel = UILabel()
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.font = .boldSystemFont(ofSize: 20)
-            titleLabel.text = "Songs"
-            
-            headerView.addSubview(titleLabel)
-            
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16).isActive = true
-            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
-            
-            return headerView
+        let headerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = .boldSystemFont(ofSize: 20)
+        titleLabel.text = "Songs"
+        
+        headerView.addSubview(titleLabel)
+        
+        titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+        
+        return headerView
+    }
+    
+    
+}
+
+// MARK: - searchBar Delegate
+extension MainVC: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText.isEmpty {
+            filteredMusicList = musicList
+            searchBar.resignFirstResponder()
+        } else {
+            filteredMusicList = musicList.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
         }
     }
     
 }
+
 
 // MARK: - protocol Conformance
 
@@ -172,6 +203,8 @@ extension MainVC: AddNewMusicDelegate {
 
 // MARK: - Preview
 #Preview {
-    MainVC(musicList: Music.initial)
+    UINavigationController(
+        rootViewController: MainVC(musicList: Music.initial)
+    )
 }
 
