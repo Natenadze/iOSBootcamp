@@ -7,16 +7,16 @@
 
 import UIKit
 
-class MainVC: UIViewController {
+final class MainVC: UIViewController {
     
     // MARK: - Properties
-    let searchBar = UISearchBar()
+    private let searchBar = UISearchBar()
     
-    let tableView = UITableView()
-    var plusButton = UIBarButtonItem()
-    var editButton = UIBarButtonItem()
-    var musicList: [Music] = []
-    var filteredMusicList: [Music] = []
+    private let tableView = UITableView()
+    private var plusButton = UIBarButtonItem()
+    private var editButton = UIBarButtonItem()
+    private var musicList: [Music] = []
+    private var filteredMusicList: [Music] = []
     
     
     // MARK: - lifeCycle
@@ -39,18 +39,18 @@ class MainVC: UIViewController {
     
     
     // MARK: - Methods
-    @objc func plusButtonTapped() {
+    @objc private func plusButtonTapped() {
         let vc = AddNewMusicVC()
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func editButtonTapped() {
+    @objc private func editButtonTapped() {
         tableView.isEditing = tableView.isEditing ? false : true
         
     }
     
-    func goToMusicDetailsVC(index: Int) {
+    private func goToMusicDetailsVC(index: Int) {
         let image = musicList[index].image
         let title = musicList[index].title
         let vc = MusicDetailsVC(image: image, song: title)
@@ -67,7 +67,7 @@ class MainVC: UIViewController {
 extension MainVC {
     
     
-    func style() {
+    private func style() {
         searchBar.searchBarStyle = .default
         searchBar.placeholder = "Search Music"
         searchBar.delegate = self
@@ -96,7 +96,7 @@ extension MainVC {
         
     }
     
-    func layout() {
+    private func layout() {
         view.addSubview(tableView)
         
         tableView.frame = view.bounds

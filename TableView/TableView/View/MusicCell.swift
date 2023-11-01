@@ -8,11 +8,11 @@
 import UIKit
 
 
-class MusicCell: UITableViewCell {
+final class MusicCell: UITableViewCell {
     
     // MARK: - Properties
-    let musicImageView = UIImageView()
-    let titleLabel = UILabel()
+    private let musicImageView = UIImageView()
+    private let titleLabel = UILabel()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -36,7 +36,7 @@ class MusicCell: UITableViewCell {
 
 extension MusicCell {
     
-    func cellStyle() {
+    private func cellStyle() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         musicImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -44,7 +44,7 @@ extension MusicCell {
         musicImageView.clipsToBounds = true
     }
     
-    func layout() {
+    private func layout() {
         
         contentView.addSubview(musicImageView)
         contentView.addSubview(titleLabel)

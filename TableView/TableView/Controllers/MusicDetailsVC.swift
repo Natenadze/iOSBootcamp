@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MusicDetailsVC: UIViewController {
+final class MusicDetailsVC: UIViewController {
     
     // MARK: - Properties
     private let stackView = UIStackView()
@@ -42,7 +42,7 @@ class MusicDetailsVC: UIViewController {
 extension MusicDetailsVC {
     
     
-    func style() {
+    private func style() {
         albumImage.translatesAutoresizingMaskIntoConstraints = false
         songTitle.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +55,7 @@ extension MusicDetailsVC {
         
     }
     
-    func layout() {
+    private func layout() {
         stackView.addArrangedSubview(albumImage)
         stackView.addArrangedSubview(songTitle)
         view.addSubview(stackView)

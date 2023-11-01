@@ -14,7 +14,7 @@ protocol AddNewMusicDelegate: AnyObject {
 
 // MARK: - VC
 
-class AddNewMusicVC: UIViewController {
+final class AddNewMusicVC: UIViewController {
     
     // MARK: - Properties
     private let mainStackView = UIStackView()
@@ -56,7 +56,7 @@ class AddNewMusicVC: UIViewController {
 extension AddNewMusicVC {
     
     
-    func style() {
+    private func style() {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         songNameLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ extension AddNewMusicVC {
         
     }
     
-    func layout() {
+    private func layout() {
         mainStackView.addArrangedSubview(songNameLabel)
         mainStackView.addArrangedSubview(imageTitleTextField)
         mainStackView.addArrangedSubview(imageView)
