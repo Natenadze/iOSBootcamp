@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieController: UIViewController {
+final class MovieController: UIViewController {
     
     // MARK: - Properties
     private var movies: [MovieModel]
@@ -22,6 +22,30 @@ class MovieController: UIViewController {
         collection.register(MovieCustomCollectionCell.self, forCellWithReuseIdentifier: MovieCustomCollectionCell.cellID)
         collection.backgroundColor = .collectionBackground
         return collection
+    }()
+    
+    private let profileButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Profile", for: .normal)
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        button.layer.cornerRadius = 8
+        return button
+    }() 
+    
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")!
+        return imageView
+    }()
+    
+    private let listTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Now in cinemas"
+        label.font = .boldSystemFont(ofSize: 22)
+        label.textColor = .white
+        return label
     }()
     
     
@@ -48,6 +72,7 @@ class MovieController: UIViewController {
         view.backgroundColor = .systemBlue
         collectionView.delegate = self
         collectionView.dataSource = self
+
     }
     
     
@@ -62,20 +87,43 @@ extension MovieController {
     
     func style() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        listTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .mainBackground
+        
+        let barButton = UIBarButtonItem(customView: profileButton)
+        navigationItem.rightBarButtonItem = barButton
+        
+   
+        logoImageView.contentMode = .scaleAspectFill
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
     }
     
     func layout() {
+        view.addSubview(profileButton)
         view.addSubview(collectionView)
+        view.addSubview(listTitleLabel)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
+            listTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+            
+            collectionView.topAnchor.constraint(equalToSystemSpacingBelow: listTitleLabel.bottomAnchor, multiplier: 2),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor, constant: 16),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            
+            profileButton.widthAnchor.constraint(equalToConstant: 80),
+            profileButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            logoImageView.heightAnchor.constraint(equalToConstant: 48),
+            logoImageView.widthAnchor.constraint(equalToConstant: 48),
             
         ])
+        
+
         
     }
 }
@@ -128,13 +176,16 @@ extension MovieController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         24
     }
+    
+    
+
 }
 
 
 
 // MARK: - Preview
 #Preview {
-    MovieController(movie: MovieModel.initial)
+    UINavigationController(rootViewController: MovieController(movie: MovieModel.initial))
 }
 
 

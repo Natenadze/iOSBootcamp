@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieDetailsController: UIViewController {
+final class MovieDetailsController: UIViewController {
     
     // MARK: - Properties
     private let movieTitle = UILabel()
@@ -70,6 +70,10 @@ class MovieDetailsController: UIViewController {
         self.genre.text       = movie.genre.rawValue
         self.director.text    = movie.director
         self.cast.text        = movie.cast
+    }
+    
+    @objc func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 
     
@@ -149,6 +153,13 @@ extension MovieDetailsController {
         navigationItem.title = movieTitle.text
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let customBackButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(goBack))
+        customBackButton.tintColor = .gray
+        navigationItem.leftBarButtonItem = customBackButton
+
+      
+
     }
     
     func layout() {

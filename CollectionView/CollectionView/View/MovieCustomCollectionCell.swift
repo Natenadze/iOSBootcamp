@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieCustomCollectionCell: UICollectionViewCell {
+final class MovieCustomCollectionCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let cellID = "MovieCustomCollectionCell"
