@@ -147,6 +147,10 @@ extension MovieController: UICollectionViewDataSource {
         }
         
         cell.configure(withMovie: movies[indexPath.row])
+        cell.isFavorite = { [weak self] isLiked in
+            self?.movies[indexPath.row].isFavorite = isLiked
+            self?.collectionView.reloadItems(at: [indexPath])
+        }
         return cell
     }
 }

@@ -12,6 +12,8 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     // MARK: - Properties
     static let cellID = "MovieCustomCollectionCell"
     
+    var isFavorite: ((Bool) -> Void)?
+    
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -60,11 +62,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return label
     }()
     
-    var isLiked: Bool = false {
-        didSet {
-            heartButton.tintColor = isLiked ? UIColor.red : UIColor.gray
-        }
-    }
+    var isLiked: Bool = false
     
     
     // MARK: - init
@@ -85,6 +83,13 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         imdbRating.text = String(movie.imdbRating)
         title.text = movie.title
         genre.text = movie.genre.rawValue
+        isLiked = movie.isFavorite
+        heartButton.tintColor = isLiked ? UIColor.red : UIColor.gray
+    }
+  
+    func updateIsFavorite() {
+        isLiked.toggle()
+        isFavorite?(isLiked)
     }
     
     override func prepareForReuse() {
@@ -99,7 +104,7 @@ extension MovieCustomCollectionCell {
      
     func cellStyle() {
         heartButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.isLiked.toggle()
+            self?.updateIsFavorite()
         }), for: .touchUpInside)
         
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
