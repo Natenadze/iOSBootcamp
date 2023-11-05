@@ -27,16 +27,48 @@ final class LoginViewController: UIViewController {
     // MARK: - Helper Methods
     
     
-    @objc func handleLogin() {
-//        guard let email    = emailTextField.text    else { return }
-//        guard let password = passwordTextField.text else { return }
-//
-        let vc = NoteListViewController(noteList: Note.initial)
-        show(vc, sender: self)
-            
+    private func handleLogin() {
+        guard let email = emailTextField.text, !email.isEmpty else { return }
+        guard let password = passwordTextField.text, !password.isEmpty else { return }
+        
+        if userIsLoggedIn(email: email) {
+            // check if password match
+            if let _ = KeyChain.standard.read(service: password, account: email) {
+                loginUser()
+            }  else {
+                showAlert(message: "Invalid password")
+            }
+        } else {
+            UserDefaults.standard.setValue(true, forKey: email)
+            saveNewUser(email: email, password: password)
+            loginUser()
+        }
+        
+    }
+    
+    private func userIsLoggedIn (email: String) -> Bool {
+       UserDefaults.standard.bool(forKey: email)
     }
 
     
+    
+    private func saveNewUser(email: String, password: String) {
+        KeyChain.standard.save(email.data(using: .utf8)!, service: email, account: email)
+        KeyChain.standard.save(password.data(using: .utf8)!, service: password, account: email)
+    }
+    
+    private func loginUser() {
+        let vc = NoteListViewController(noteList: Note.initial)
+        show(vc, sender: self)
+    }
+    
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+ 
 }
 
 
@@ -45,7 +77,7 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     
     
-    func style() {
+    private func style() {
         view.backgroundColor = .appColor
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -61,12 +93,16 @@ extension LoginViewController {
         loginButton.setTitleColor(.systemBlue, for: .normal)
         loginButton.backgroundColor = .white
         loginButton.layer.cornerRadius = 5
-        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        loginButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        
+        loginButton.addAction(
+            UIAction(handler: { [weak self] _ in
+            self?.handleLogin()
+        }), for: .touchUpInside)
         
     }
     
-    func layout() {
+    private func layout() {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(loginButton)

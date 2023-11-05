@@ -15,9 +15,9 @@
 		5D4234E52AF7B9C100ECBC13 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234E42AF7B9C100ECBC13 /* AddNoteViewController.swift */; };
 		5D4234E72AF7B9D500ECBC13 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234E62AF7B9D500ECBC13 /* NoteDetailsViewController.swift */; };
 		5D4234EC2AF7E72400ECBC13 /* TextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234EB2AF7E72400ECBC13 /* TextField + Extension.swift */; };
-		5D4234EE2AF7E7B400ECBC13 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234ED2AF7E7B400ECBC13 /* Utils.swift */; };
 		5D4234F02AF7E7FC00ECBC13 /* UIColor + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234EF2AF7E7FC00ECBC13 /* UIColor + extension.swift */; };
 		5D4234F42AF7EDDD00ECBC13 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4234F32AF7EDDD00ECBC13 /* Note.swift */; };
+		5D887D672AF8199D00C0A327 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D887D662AF8199D00C0A327 /* KeyChainHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 		5D4234E42AF7B9C100ECBC13 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
 		5D4234E62AF7B9D500ECBC13 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		5D4234EB2AF7E72400ECBC13 /* TextField + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField + Extension.swift"; sourceTree = "<group>"; };
-		5D4234ED2AF7E7B400ECBC13 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5D4234EF2AF7E7FC00ECBC13 /* UIColor + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + extension.swift"; sourceTree = "<group>"; };
 		5D4234F32AF7EDDD00ECBC13 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		5D887D662AF8199D00C0A327 /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 			children = (
 				5D4234EF2AF7E7FC00ECBC13 /* UIColor + extension.swift */,
 				5D4234EB2AF7E72400ECBC13 /* TextField + Extension.swift */,
-				5D4234ED2AF7E7B400ECBC13 /* Utils.swift */,
+				5D887D662AF8199D00C0A327 /* KeyChainHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -185,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D4234E52AF7B9C100ECBC13 /* AddNoteViewController.swift in Sources */,
+				5D887D672AF8199D00C0A327 /* KeyChainHelper.swift in Sources */,
 				5D4234F42AF7EDDD00ECBC13 /* Note.swift in Sources */,
 				5D4234D12AF7B8F900ECBC13 /* LoginViewController.swift in Sources */,
 				5D4234CD2AF7B8F900ECBC13 /* AppDelegate.swift in Sources */,
@@ -192,7 +193,6 @@
 				5D4234E32AF7B9B200ECBC13 /* NoteListViewController.swift in Sources */,
 				5D4234F02AF7E7FC00ECBC13 /* UIColor + extension.swift in Sources */,
 				5D4234EC2AF7E72400ECBC13 /* TextField + Extension.swift in Sources */,
-				5D4234EE2AF7E7B400ECBC13 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

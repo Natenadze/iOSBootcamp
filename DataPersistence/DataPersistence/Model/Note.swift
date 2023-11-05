@@ -8,7 +8,7 @@
 import Foundation
 
 struct Note {
-    let noteText: String
+    var noteText: String
 }
 
 

@@ -11,7 +11,9 @@ class NoteDetailsViewController: UIViewController {
     
     // MARK: - Properties
     private var note: Note
+    private var index: Int
     private let noteTextView = UITextView()
+    var updateNote: ((String) -> Void)?
     
     
     // MARK: - lifeCycle
@@ -21,14 +23,22 @@ class NoteDetailsViewController: UIViewController {
         layout()
     }
     
-    init(note: Note) {
+    init(note: Note, index: Int) {
         self.note = note
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
+    @objc func backButtonAction() {
+        updateNote?(noteTextView.text)
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     
 }
@@ -49,6 +59,9 @@ extension NoteDetailsViewController {
         noteTextView.isScrollEnabled = true
         noteTextView.font = .systemFont(ofSize: 22)
         noteTextView.autocorrectionType = .no
+        
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonAction))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     func layout() {
@@ -67,7 +80,7 @@ extension NoteDetailsViewController {
 
 
 // MARK: - Preview
-#Preview {
-    NoteDetailsViewController(note: Note(noteText: "asd"))
-}
+//#Preview {
+//    NoteDetailsViewController(note: Note(noteText: "asd"))
+//}
 

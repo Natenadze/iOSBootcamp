@@ -47,14 +47,6 @@ final class NoteListViewController: UIViewController {
         tableView.isEditing = tableView.isEditing ? false : true
         
     }
-//    
-//    private func goToNoteDetailsViewController(index: Int) {
-//        
-//        let note = noteList[index]
-//        let vc = NoteDetailsViewController(note: note)
-//        show(vc, sender: self)
-//        
-//    }
     
     
 }
@@ -128,7 +120,11 @@ extension NoteListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = NoteDetailsViewController(note: noteList[indexPath.row])
+        let vc = NoteDetailsViewController(note: noteList[indexPath.row], index: indexPath.row)
+        vc.updateNote = { [weak self] updatedText in
+            self?.noteList[indexPath.row].noteText = updatedText
+            self?.tableView.reloadData()
+        }
         show(vc, sender: self)
     }
     
@@ -174,11 +170,4 @@ extension NoteListViewController: AddNewNoteDelegate {
     }
 }
 
-
-
-
-// MARK: - Preview
-//#Preview {
-//    NoteListViewController()
-//}
 

@@ -33,9 +33,8 @@ final class AddNoteViewController: UIViewController {
     // MARK: - Methods
 
     
-    @objc func saveImagePressed() {
-        
-        let note = Note(noteText: noteTextView.text ?? "asd")
+    @objc private func saveImagePressed() {
+        let note = Note(noteText: noteTextView.text ?? "")
         delegate?.addNote(note)
         navigationController?.popViewController(animated: true)
         
