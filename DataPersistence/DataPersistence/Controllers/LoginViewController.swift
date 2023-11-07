@@ -11,7 +11,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     private let stackView = UIStackView()
-
+    
     private var emailTextField = UITextField()
     private var passwordTextField = UITextField()
     private let loginButton = UIButton(type: .system)
@@ -36,20 +36,21 @@ final class LoginViewController: UIViewController {
             if let _ = KeyChain.standard.read(service: password, account: email) {
                 loginUser()
             }  else {
-                showAlert(message: "Invalid password")
+                showAlert(title: "Login Failed", message: "Invalid password", shouldLogin: false)
             }
         } else {
             UserDefaults.standard.setValue(true, forKey: email)
             saveNewUser(email: email, password: password)
-            loginUser()
+            showAlert(title: "Gaumarjos", message: "Ra ubneli xar?", shouldLogin: true)
+            
         }
         
     }
     
     private func userIsLoggedIn (email: String) -> Bool {
-       UserDefaults.standard.bool(forKey: email)
+        UserDefaults.standard.bool(forKey: email)
     }
-
+    
     
     
     private func saveNewUser(email: String, password: String) {
@@ -62,13 +63,29 @@ final class LoginViewController: UIViewController {
         show(vc, sender: self)
     }
     
-
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    
+    private func showAlert(title: String, message: String, shouldLogin: Bool) {
+        let alert = UIAlertController(
+            title: title, message: message, preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) {[weak self] _ in
+            switch shouldLogin {
+            case true: self?.loginUser()
+            default: self?.refreshUI()
+            }
+        }
+        
+        alert.addAction(okAction)
         present(alert, animated: true)
     }
- 
+    
+    private func refreshUI() {
+        loginButton.configuration?.showsActivityIndicator = false
+        emailTextField.text = ""
+        passwordTextField.text = ""
+    }
+    
 }
 
 
@@ -90,15 +107,19 @@ extension LoginViewController {
         stackView.spacing = 30
         
         loginButton.setTitle("Log in", for: .normal)
-        loginButton.setTitleColor(.systemBlue, for: .normal)
-        loginButton.backgroundColor = .white
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.layer.cornerRadius = 5
         loginButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        loginButton.configuration = .filled()
+        loginButton.configuration?.imagePadding = 7
         
         loginButton.addAction(
             UIAction(handler: { [weak self] _ in
-            self?.handleLogin()
-        }), for: .touchUpInside)
+                self?.loginButton.configuration?.showsActivityIndicator = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self?.handleLogin()
+                }
+            }), for: .touchUpInside)
         
     }
     
