@@ -15,7 +15,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     var isFavorite: ((Bool) -> Void)?
     
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -24,7 +24,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-    let heartButton: UIButton = {
+    private let heartButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImage(systemName: "heart.fill")
@@ -33,7 +33,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return button
     }()  
     
-    let imdbRating: UILabel = {
+    private let imdbRating: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .orange
@@ -44,25 +44,23 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return label
     }()
     
-    let titleStackView = UIStackView()
+    private let titleStackView = UIStackView()
        
-    let title: UILabel = {
+    private let title: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
         return label
     }()
        
-    let genre: UILabel = {
+    private let genreLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .gray
         return label
     }()
     
-    var isLiked: Bool = false
+    private var isLiked: Bool = false
     
     
     // MARK: - init
@@ -82,7 +80,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         imageView.image = movie.image
         imdbRating.text = String(movie.imdbRating)
         title.text = movie.title
-        genre.text = movie.genre.rawValue
+        genreLabel.text = movie.genre.rawValue
         isLiked = movie.isFavorite
         heartButton.tintColor = isLiked ? UIColor.red : UIColor.gray
     }
@@ -121,7 +119,7 @@ extension MovieCustomCollectionCell {
         contentView.addSubview(imdbRating)
         
         titleStackView.addArrangedSubview(title)
-        titleStackView.addArrangedSubview(genre)
+        titleStackView.addArrangedSubview(genreLabel)
         contentView.addSubview(titleStackView)
         
         NSLayoutConstraint.activate([

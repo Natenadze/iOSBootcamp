@@ -31,11 +31,11 @@ final class MovieDetailsController: UIViewController {
     private let castLabel = UILabel()
     
     // stacks
-    let imdbStack = UIStackView()
-    let detailsMainStack = UIStackView()
-    let detailsHorizontalStack = UIStackView()
-    let detailsLeftVerticalStack = UIStackView()
-    let detailsRightVerticalStack = UIStackView()
+    private let imdbStack = UIStackView()
+    private let detailsMainStack = UIStackView()
+    private let detailsHorizontalStack = UIStackView()
+    private let detailsLeftVerticalStack = UIStackView()
+    private let detailsRightVerticalStack = UIStackView()
     
     let selectSessionButton = UIButton()
     
@@ -60,19 +60,19 @@ final class MovieDetailsController: UIViewController {
     // MARK: - Methods
     
     func configure(_ movie: MovieModel) {
-        self.movieTitle.text  = movie.title
-        self.imageView.image  = movie.image
+        self.movieTitle.text = movie.title
+        self.imageView.image = movie.image
         self.descriptionText.text  = movie.description
-        self.imdbRating.text  = String(movie.imdbRating)
+        self.imdbRating.text = String(movie.imdbRating)
         self.certificate.text = movie.certificate
-        self.runtime.text     = movie.runtime
+        self.runtime.text = movie.runtime
         self.releaseDate.text = String(movie.releaseDate)
-        self.genre.text       = movie.genre.rawValue
-        self.director.text    = movie.director
-        self.cast.text        = movie.cast
+        self.genre.text = movie.genre.rawValue
+        self.director.text = movie.director
+        self.cast.text = movie.cast
     }
     
-    @objc func goBack() {
+    @objc private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
