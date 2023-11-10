@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
         
-        let vc = MovieController(movie: MovieModel.initial)
+        let vc = MovieController()
         let navVC = UINavigationController(rootViewController: vc)
         window?.rootViewController = navVC
         

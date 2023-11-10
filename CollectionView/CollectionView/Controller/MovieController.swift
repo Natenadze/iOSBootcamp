@@ -10,7 +10,7 @@ import UIKit
 final class MovieController: UIViewController {
     
     // MARK: - Properties
-    private var movies: [MovieModel]
+    private var movies = [MovieModel]()
     
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -52,31 +52,55 @@ final class MovieController: UIViewController {
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setup()
         style()
         layout()
     }
     
-    // MARK: - init
-    init(movie: [MovieModel]) {
-        self.movies = movie
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    /*
+     // MARK: - init
+ //    init(movie: [MovieModel]) {
+ //        self.movies = movie
+ //        super.init(nibName: nil, bundle: nil)
+ //    }
+ //
+ //    required init?(coder: NSCoder) {
+ //        fatalError("init(coder:) has not been implemented")
+ //    }
+     */
+
     
     // MARK: - Methods
-    private func setup() {
+    private func setup()  {
         view.backgroundColor = .systemBlue
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        makeApiCall()
     }
     
     
-    
+    func makeApiCall()  {
+        let urlStrings = MovieModel.initialUrls
+        
+        urlStrings.forEach { url in
+            Task {
+                
+                if let movie: MovieModel = try? await NetworkManager.performURLRequest(url, isPoster: false) {
+                    DispatchQueue.main.async {
+                        self.movies.append(movie)
+                        self.collectionView.reloadData()
+                    }
+                }
+                
+                
+            }
+        }
+        
+        
+        
+    }
+     
 }
 
 
@@ -118,7 +142,6 @@ extension MovieController {
             profileButton.widthAnchor.constraint(equalToConstant: 80),
             profileButton.heightAnchor.constraint(equalToConstant: 40),
             
-            logoImageView.heightAnchor.constraint(equalToConstant: 48),
             logoImageView.widthAnchor.constraint(equalToConstant: 48),
             
         ])
@@ -146,11 +169,12 @@ extension MovieController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+
+
         cell.configure(withMovie: movies[indexPath.row])
-        cell.isFavorite = { [weak self] isLiked in
-            self?.movies[indexPath.row].isFavorite = isLiked
-            self?.collectionView.reloadItems(at: [indexPath])
-        }
+        
+        
+        
         return cell
     }
 }
@@ -159,7 +183,14 @@ extension MovieController: UICollectionViewDataSource {
 
 extension MovieController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MovieDetailsController(movie: movies[indexPath.row])
+       
+//            let vc = MovieDetailsController(movie: movies[indexPath.row])
+//            show(vc, sender: self)
+        let selectedMovie = movies[indexPath.row]
+        let selectedCell = collectionView.cellForItem(at: indexPath) as? MovieCustomCollectionCell
+        
+        let vc = MovieDetailsController()
+        vc.configure(selectedMovie, image: selectedCell?.imageView.image)
         show(vc, sender: self)
     }
     
@@ -188,8 +219,8 @@ extension MovieController: UICollectionViewDelegateFlowLayout {
 
 
 // MARK: - Preview
-#Preview {
-    UINavigationController(rootViewController: MovieController(movie: MovieModel.initial))
-}
+//#Preview {
+//    UINavigationController(rootViewController: MovieController(movie: MovieModel.initial))
+//}
 
 

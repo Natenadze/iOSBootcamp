@@ -3,4 +3,132 @@
    uuid = "A8D49DDB-C71B-4B05-A7A3-5D88F50A5C36"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8993DB4F-8233-4A3C-830A-35399B550FC3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollectionView/API/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "performURLRequest(_:isPoster:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8993DB4F-8233-4A3C-830A-35399B550FC3 - bf793559caea75b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Swift.String) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "828">
+               </Location>
+               <Location
+                  uuid = "8993DB4F-8233-4A3C-830A-35399B550FC3 - 17e9f642255ecbbb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Swift.String) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "8993DB4F-8233-4A3C-830A-35399B550FC3 - 5e5ef27c00a6b54c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(_: Swift.String, isPoster: Swift.Bool) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "1072">
+               </Location>
+               <Location
+                  uuid = "8993DB4F-8233-4A3C-830A-35399B550FC3 - e96b2ed0ac5a8b4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(_: Swift.String, isPoster: Swift.Bool) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "148">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "280FF9B3-78B3-4607-A14A-EB72871C29B6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollectionView/API/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "performURLRequest(_:isPoster:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "280FF9B3-78B3-4607-A14A-EB72871C29B6 - ce5a8f0fad40b068"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(Swift.String) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "280FF9B3-78B3-4607-A14A-EB72871C29B6 - f7f32885589ef094"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for static CollectionView.NetworkManager.performURLRequest&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(_: Swift.String, isPoster: Swift.Bool) async throws -&gt; Swift.Optional&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "CollectionView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davitnatenadze/Desktop/TBC/iOSBootcamp/CollectionView/CollectionView/API/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "376">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

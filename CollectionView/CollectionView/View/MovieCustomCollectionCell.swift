@@ -12,10 +12,8 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     // MARK: - Properties
     static let cellID = "MovieCustomCollectionCell"
     
-    var isFavorite: ((Bool) -> Void)?
-    
-    
-    private let imageView: UIImageView = {
+
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -24,14 +22,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let heartButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "heart.fill")
-        button.setImage(image, for: .normal)
-        button.tintColor = .gray
-        return button
-    }()  
     
     private let imdbRating: UILabel = {
         let label = UILabel()
@@ -77,18 +67,25 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     
     // MARK: - Methods
     func configure(withMovie movie: MovieModel) {
-        imageView.image = movie.image
-        imdbRating.text = String(movie.imdbRating)
+        imdbRating.text = movie.imdbRating
         title.text = movie.title
-        genreLabel.text = movie.genre.rawValue
-        isLiked = movie.isFavorite
-        heartButton.tintColor = isLiked ? UIColor.red : UIColor.gray
+        genreLabel.text = movie.genre
+        updateMovieImage(imageURL: movie.poster)
+    }
+    
+    
+    func updateMovieImage(imageURL: String)  {
+        Task {
+            if let imageData: Data = try? await NetworkManager.performURLRequest(imageURL, isPoster: true){
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                }
+                
+            }
+        }
+       
     }
   
-    func updateIsFavorite() {
-        isLiked.toggle()
-        isFavorite?(isLiked)
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -101,9 +98,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
 extension MovieCustomCollectionCell {
      
     func cellStyle() {
-        heartButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.updateIsFavorite()
-        }), for: .touchUpInside)
         
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
         titleStackView.axis = .vertical
@@ -115,7 +109,6 @@ extension MovieCustomCollectionCell {
     
     func layout() {
         contentView.addSubview(imageView)
-        contentView.addSubview(heartButton)
         contentView.addSubview(imdbRating)
         
         titleStackView.addArrangedSubview(title)
@@ -127,12 +120,7 @@ extension MovieCustomCollectionCell {
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: titleStackView.topAnchor, constant: 28),
-            
-            heartButton.widthAnchor.constraint(equalToConstant: 28),
-            heartButton.heightAnchor.constraint(equalToConstant: 28),
-            heartButton.topAnchor.constraint(equalTo: imageView.topAnchor),
-            heartButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            
+
             imdbRating.heightAnchor.constraint(equalToConstant: 26),
             imdbRating.widthAnchor.constraint(equalToConstant: 40),
             imdbRating.topAnchor.constraint(equalToSystemSpacingBelow: imageView.topAnchor, multiplier: 1),

@@ -11,10 +11,9 @@ final class MovieDetailsController: UIViewController {
     
     // MARK: - Properties
     private let movieTitle = UILabel()
-    private var imageView = UIImageView()
+    var imageView = UIImageView()
     private let imdbRating = UILabel()
     
-    private let certificate = UILabel()
     private let runtime = UILabel()
     private let releaseDate = UILabel()
     private let genre = UILabel()
@@ -23,7 +22,6 @@ final class MovieDetailsController: UIViewController {
     private let descriptionText = UILabel  ()
     
     private let imdbRatingLabel = UILabel()
-    private let certificateLabel = UILabel()
     private let runtimeLabel = UILabel()
     private let releaseDateLabel = UILabel()
     private let genreLabel = UILabel()
@@ -46,30 +44,29 @@ final class MovieDetailsController: UIViewController {
         layout()
     }
     
-    init(movie: MovieModel) {
-        super.init(nibName: nil, bundle: nil)
-        configure(movie)
-    }
+//    init(movie: MovieModel) {
+//        super.init(nibName: nil, bundle: nil)
+//        configure(movie)
+//    }
     
     
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     // MARK: - Methods
     
-    func configure(_ movie: MovieModel) {
+    func configure(_ movie: MovieModel, image: UIImage?) {
         self.movieTitle.text = movie.title
-        self.imageView.image = movie.image
-        self.descriptionText.text  = movie.description
-        self.imdbRating.text = String(movie.imdbRating)
-        self.certificate.text = movie.certificate
+        self.imageView.image = image
+        self.descriptionText.text  = movie.plot
+        self.imdbRating.text = movie.imdbRating
         self.runtime.text = movie.runtime
-        self.releaseDate.text = String(movie.releaseDate)
-        self.genre.text = movie.genre.rawValue
+        self.releaseDate.text = movie.year
+        self.genre.text = movie.genre
         self.director.text = movie.director
-        self.cast.text = movie.cast
+        self.cast.text = movie.actors
     }
     
     @objc private func goBack() {
@@ -123,8 +120,7 @@ extension MovieDetailsController {
         descriptionText.textColor = .white
         descriptionText.numberOfLines = 0
         
-        certificateLabel.textColor = .gray
-        certificateLabel.text = "Certificate"
+
         runtimeLabel.textColor = .gray
         runtimeLabel.text = "Runtime"
         releaseDateLabel.textColor = .gray
@@ -137,7 +133,6 @@ extension MovieDetailsController {
         castLabel.text = "Cast"
         
         
-        certificate.textColor = .white
         runtime.textColor = .white
         releaseDate.textColor = .white
         genre.textColor = .white
@@ -169,7 +164,7 @@ extension MovieDetailsController {
         view.addSubview(imdbStack)
         
         detailsMainStack.addArrangedSubview(descriptionText)
-        detailsLeftVerticalStack.addArrangedSubview(certificateLabel)
+
         detailsLeftVerticalStack.addArrangedSubview(runtimeLabel)
         detailsLeftVerticalStack.addArrangedSubview(releaseDateLabel)
         detailsLeftVerticalStack.addArrangedSubview(genreLabel)
@@ -178,7 +173,7 @@ extension MovieDetailsController {
         detailsHorizontalStack.addArrangedSubview(detailsLeftVerticalStack)
         
         
-        detailsRightVerticalStack.addArrangedSubview(certificate)
+
         detailsRightVerticalStack.addArrangedSubview(runtime)
         detailsRightVerticalStack.addArrangedSubview(releaseDate)
         detailsRightVerticalStack.addArrangedSubview(genre)
@@ -214,10 +209,10 @@ extension MovieDetailsController {
 
 
 // MARK: - Preview
-#Preview {
-    UINavigationController(rootViewController:
-            MovieDetailsController(movie: MovieModel.initial[0])
-    )
-
-}
-
+//#Preview {
+//    UINavigationController(rootViewController:
+//            MovieDetailsController(movie: MovieModel.initial[0])
+//    )
+//
+//}
+//
