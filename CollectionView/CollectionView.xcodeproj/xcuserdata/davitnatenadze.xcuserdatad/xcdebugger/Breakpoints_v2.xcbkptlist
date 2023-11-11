@@ -14,9 +14,9 @@
             filePath = "CollectionView/API/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "performURLRequest(_:isPoster:)"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "performURLRequest(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -94,7 +94,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
             endingLineNumber = "17"
-            landmarkName = "performURLRequest(_:isPoster:)"
+            landmarkName = "performURLRequest(_:)"
             landmarkType = "7">
             <Locations>
                <Location

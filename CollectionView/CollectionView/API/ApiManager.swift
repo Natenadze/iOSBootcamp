@@ -18,7 +18,6 @@ enum NetworkError: Error {
 
 final class ApiManager {
     
-    
     static func performURLRequest<T: Decodable>(_ urlString: String, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let url = URL(string: urlString) else {
@@ -28,6 +27,7 @@ final class ApiManager {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {
+                print(error.localizedDescription)
                 completion(.failure(NetworkError.invalidURL))
                 return
             }
@@ -47,7 +47,5 @@ final class ApiManager {
             
         }.resume()
     }
-    
-    
     
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-let apiKey = "33c3587a"
+let apiKey = "putYourApiKeyHere"
 
 
 // MARK: - Model
@@ -45,7 +45,8 @@ extension MovieModel {
         "https://www.omdbapi.com/?t=The%20Big%20Bang%20Theory&apikey=\(apiKey)",
         "https://www.omdbapi.com/?t=How%20to%20Train%20Your%20Dragon&apikey=\(apiKey)",
         "https://www.omdbapi.com/?t=The%20Girl%20with%20the%20Dragon%20Tattoo&apikey=\(apiKey)",
-        "https://www.omdbapi.com/?t=Bean&apikey=\(apiKey)"
+        "https://www.omdbapi.com/?t=Bean&apikey=\(apiKey)",
+        "https://www.omdbapi.com/?t=Dictator&apikey=\(apiKey)"
     ]
 }
 

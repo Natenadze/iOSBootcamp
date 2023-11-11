@@ -75,14 +75,15 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     
     
     func updateMovieImage(imageURL: String)  {
-        Task {
-            if let imageData: Data = try? await NetworkManager.performURLRequest(imageURL, isPoster: true){
+        guard let url = URL(string: imageURL) else { return }
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {
                     self.imageView.image = UIImage(data: imageData)
                 }
-                
             }
         }
+        
        
     }
   

@@ -44,16 +44,6 @@ final class MovieDetailsController: UIViewController {
         layout()
     }
     
-//    init(movie: MovieModel) {
-//        super.init(nibName: nil, bundle: nil)
-//        configure(movie)
-//    }
-    
-    
-    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     // MARK: - Methods
     
@@ -73,14 +63,12 @@ final class MovieDetailsController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    
 }
 
 
 // MARK: - Style & Layout
 
 extension MovieDetailsController {
-    
     
     func style() {
         view.backgroundColor = .mainBackground
@@ -132,7 +120,6 @@ extension MovieDetailsController {
         castLabel.textColor = .gray
         castLabel.text = "Cast"
         
-        
         runtime.textColor = .white
         releaseDate.textColor = .white
         genre.textColor = .white
@@ -172,8 +159,7 @@ extension MovieDetailsController {
         detailsLeftVerticalStack.addArrangedSubview(castLabel)
         detailsHorizontalStack.addArrangedSubview(detailsLeftVerticalStack)
         
-        
-
+    
         detailsRightVerticalStack.addArrangedSubview(runtime)
         detailsRightVerticalStack.addArrangedSubview(releaseDate)
         detailsRightVerticalStack.addArrangedSubview(genre)
@@ -207,12 +193,3 @@ extension MovieDetailsController {
     }
 }
 
-
-// MARK: - Preview
-//#Preview {
-//    UINavigationController(rootViewController:
-//            MovieDetailsController(movie: MovieModel.initial[0])
-//    )
-//
-//}
-//

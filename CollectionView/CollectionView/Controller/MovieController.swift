@@ -12,6 +12,7 @@ final class MovieController: UIViewController {
     // MARK: - Properties
     private var movies = [MovieModel]()
     
+    // MARK: - UI Elements
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -32,7 +33,7 @@ final class MovieController: UIViewController {
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 8
         return button
-    }() 
+    }()
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -58,18 +59,7 @@ final class MovieController: UIViewController {
         layout()
     }
     
-    /*
-     // MARK: - init
- //    init(movie: [MovieModel]) {
- //        self.movies = movie
- //        super.init(nibName: nil, bundle: nil)
- //    }
- //
- //    required init?(coder: NSCoder) {
- //        fatalError("init(coder:) has not been implemented")
- //    }
-     */
-
+    
     
     // MARK: - Methods
     private func setup()  {
@@ -85,22 +75,16 @@ final class MovieController: UIViewController {
         
         urlStrings.forEach { url in
             Task {
-                
-                if let movie: MovieModel = try? await NetworkManager.performURLRequest(url, isPoster: false) {
-                    DispatchQueue.main.async {
-                        self.movies.append(movie)
-                        self.collectionView.reloadData()
+                if let movie: MovieModel = try? await NetworkManager.performURLRequest(url) {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.movies.append(movie)
+                        self?.collectionView.reloadData()
                     }
                 }
-                
-                
             }
         }
-        
-        
-        
     }
-     
+    
 }
 
 
@@ -119,7 +103,7 @@ extension MovieController {
         let barButton = UIBarButtonItem(customView: profileButton)
         navigationItem.rightBarButtonItem = barButton
         
-   
+        
         logoImageView.contentMode = .scaleAspectFill
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         
@@ -146,7 +130,7 @@ extension MovieController {
             
         ])
         
-
+        
         
     }
 }
@@ -169,8 +153,8 @@ extension MovieController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-
-
+        
+        
         cell.configure(withMovie: movies[indexPath.row])
         
         
@@ -183,9 +167,9 @@ extension MovieController: UICollectionViewDataSource {
 
 extension MovieController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-//            let vc = MovieDetailsController(movie: movies[indexPath.row])
-//            show(vc, sender: self)
+        
+        //            let vc = MovieDetailsController(movie: movies[indexPath.row])
+        //            show(vc, sender: self)
         let selectedMovie = movies[indexPath.row]
         let selectedCell = collectionView.cellForItem(at: indexPath) as? MovieCustomCollectionCell
         
@@ -213,7 +197,7 @@ extension MovieController: UICollectionViewDelegateFlowLayout {
     }
     
     
-
+    
 }
 
 
