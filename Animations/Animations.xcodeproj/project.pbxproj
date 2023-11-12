@@ -54,9 +54,9 @@
 		5D074DEA2B00B50000E08DE3 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				5D074E012B00BBBC00E08DE3 /* Animation */,
 				5D074DFF2B00BBAC00E08DE3 /* App */,
 				5D074E002B00BBB200E08DE3 /* Controller */,
+				5D074E012B00BBBC00E08DE3 /* Animation */,
 				5D074DF42B00B50100E08DE3 /* Assets.xcassets */,
 				5D074DF62B00B50100E08DE3 /* LaunchScreen.storyboard */,
 				5D074DF92B00B50100E08DE3 /* Info.plist */,

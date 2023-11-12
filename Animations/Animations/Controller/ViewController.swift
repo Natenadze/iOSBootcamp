@@ -37,11 +37,6 @@ final class ViewController: UIViewController {
         layout()
     }
     
-
-
-
-
-    
 }
 
 
@@ -53,10 +48,11 @@ extension ViewController {
 
         startButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self else { return }
+            // MARK: - first animation
 //            AnimationManager.startSlideAnimation(for: tbcLabel)
-            AnimationManager.rotateLabel(label: tbcLabel, view: view)
-
             
+            // MARK: - Second animation
+            AnimationManager.startMainAnimation(label: tbcLabel, view: view)
         }), for: .touchUpInside)
     }
     

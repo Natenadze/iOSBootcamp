@@ -8,8 +8,7 @@
 import UIKit
 
 
-
-class AnimationManager {
+final class AnimationManager {
     
     static func startSlideAnimation(for label: UILabel) {
         let animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeOut) {
@@ -27,45 +26,49 @@ class AnimationManager {
         animator.startAnimation()
     }
     
-    
-    static func rotateLabel(label: UILabel, view: UIView) {
+    static func startMainAnimation(label: UILabel, view: UIView) {
         scaleUpLabel(label: label)
-        startGradientBackgroundAnimation(for: view)
+        rotateLabel(label: label)
+        startGradientBackgroundAnimation(view: view)
+    }
+}
+
+
+// MARK: - extension Main animation parts
+
+extension AnimationManager {
+    
+    private static func rotateLabel(label: UILabel) {
         
         let initialTransform = label.transform
         let rotatedTransform = initialTransform.rotated(by: .pi)
         let counterRotatedTransform = rotatedTransform.rotated(by: -3.14)
         
-       
-        let animator = UIViewPropertyAnimator(duration: 2.5, curve: .linear) {
+        UIView.animate(withDuration: 3, delay: 0.0, options: .curveLinear, animations: {
             label.transform = rotatedTransform
-        }
-        
-        animator.addCompletion { _ in
-            UIViewPropertyAnimator(duration: 2.5, curve: .linear) {
+        }) { _ in
+            UIView.animate(withDuration: 3, delay: 0.0, options: .curveLinear, animations: {
                 label.transform = counterRotatedTransform
-            }.startAnimation()
+            }) { _ in
+                rotateLabel(label: label)
+            }
         }
-        
-        animator.startAnimation()
     }
     
-    static func scaleUpLabel(label: UILabel) {
+    private static func scaleUpLabel(label: UILabel) {
         label.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        UIView.animate(withDuration: 1.5, delay: 0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             label.alpha = 1.0
             label.transform = CGAffineTransform.identity
         }, completion: nil)
     }
     
     
-    
-    
-    static func startGradientBackgroundAnimation(for view: UIView) {
+    private static func startGradientBackgroundAnimation(view: UIView) {
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.purple.cgColor, UIColor.red.cgColor]
+        gradientLayer.colors = [UIColor.purple.cgColor, UIColor.green.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         
@@ -76,10 +79,10 @@ class AnimationManager {
         animation.toValue = [UIColor.yellow.cgColor, UIColor.green.cgColor]
         animation.duration = 3.0
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        animation.repeatCount = Float.infinity
+        animation.repeatCount = .infinity
         animation.autoreverses = true
         
         gradientLayer.add(animation, forKey: "gradientAnimation")
     }
-    
 }
+
