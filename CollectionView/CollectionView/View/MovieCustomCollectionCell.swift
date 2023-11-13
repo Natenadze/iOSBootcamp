@@ -84,7 +84,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
             }
         }
         
-       
     }
   
     

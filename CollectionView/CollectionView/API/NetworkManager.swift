@@ -10,7 +10,6 @@ import Foundation
 
 final class NetworkManager {    
    
-    // isPoster პარამეტრის ჩამატება მომიწია რადგან, UIImage რო არ აკონფორმებს decodable ს, არ მიბრუნებდა დატას და catch ში შედიოდა)) 
     static func performURLRequest<T: Decodable>(_ urlString: String) async throws -> T? {
         
         guard let url = URL(string: urlString) else {
