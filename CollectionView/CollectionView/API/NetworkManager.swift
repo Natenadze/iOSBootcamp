@@ -7,9 +7,14 @@
 
 import Foundation
 
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case badResponse
+}
 
-final class NetworkManager {    
-   
+final class NetworkManager {
+    
     static func performURLRequest<T: Decodable>(_ urlString: String) async throws -> T? {
         
         guard let url = URL(string: urlString) else {
@@ -26,6 +31,6 @@ final class NetworkManager {
         }
     }
     
-   
+    
 }
 

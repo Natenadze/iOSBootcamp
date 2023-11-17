@@ -10,7 +10,8 @@ import UIKit
 final class MovieController: UIViewController {
     
     // MARK: - Properties
-    private var movies = [MovieModel]()
+    private var viewModel: MovieControllerViewModel
+    
     
     // MARK: - UI Elements
     private var collectionView: UICollectionView = {
@@ -21,12 +22,14 @@ final class MovieController: UIViewController {
         
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(MovieCustomCollectionCell.self, forCellWithReuseIdentifier: MovieCustomCollectionCell.cellID)
+        collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .collectionBackground
         return collection
     }()
     
     private let profileButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Profile", for: .normal)
         button.backgroundColor = .orange
         button.setTitleColor(.white, for: .normal)
@@ -37,12 +40,14 @@ final class MovieController: UIViewController {
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "logo")!
         return imageView
     }()
     
     private let listTitleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Now in cinemas"
         label.font = .boldSystemFont(ofSize: 22)
         label.textColor = .white
@@ -53,38 +58,43 @@ final class MovieController: UIViewController {
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
         style()
         layout()
     }
     
+    // MARK: - init
     
+    init(viewModel: MovieControllerViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    // MARK: - Methods
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+// MARK: - extensions
+
+extension MovieController {
+    
+    // MARK: - helper Methods
     private func setup()  {
         view.backgroundColor = .systemBlue
         collectionView.delegate = self
         collectionView.dataSource = self
-        makeApiCall()
     }
     
-    
-    func makeApiCall()  {
-        let urlStrings = MovieModel.initialUrls
+    private func setupNavigationBar() {
+        let barButton = UIBarButtonItem(customView: profileButton)
+        navigationItem.rightBarButtonItem = barButton
         
-        urlStrings.forEach { url in
-            Task {
-                if let movie: MovieModel = try? await NetworkManager.performURLRequest(url) {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.movies.append(movie)
-                        self?.collectionView.reloadData()
-                    }
-                }
-            }
-        }
+        logoImageView.contentMode = .scaleAspectFill
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
     }
-    
 }
 
 
@@ -94,19 +104,9 @@ extension MovieController {
     
     
     func style() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        listTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         view.backgroundColor = .mainBackground
-        
-        let barButton = UIBarButtonItem(customView: profileButton)
-        navigationItem.rightBarButtonItem = barButton
-        
-        
-        logoImageView.contentMode = .scaleAspectFill
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-        
+        setupNavigationBar()
     }
     
     func layout() {
@@ -130,8 +130,6 @@ extension MovieController {
             
         ])
         
-        
-        
     }
 }
 
@@ -142,7 +140,7 @@ extension MovieController {
 extension MovieController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies.count
+        viewModel.movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -153,12 +151,7 @@ extension MovieController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        
-        
-        cell.configure(withMovie: movies[indexPath.row])
-        
-        
-        
+        cell.configure(withMovie: viewModel.movies[indexPath.row])
         return cell
     }
 }
@@ -168,13 +161,11 @@ extension MovieController: UICollectionViewDataSource {
 extension MovieController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        //            let vc = MovieDetailsController(movie: movies[indexPath.row])
-        //            show(vc, sender: self)
-        let selectedMovie = movies[indexPath.row]
+        let selectedMovie = viewModel.movies[indexPath.row]
         let selectedCell = collectionView.cellForItem(at: indexPath) as? MovieCustomCollectionCell
         
-        let vc = MovieDetailsController()
-        vc.configure(selectedMovie, image: selectedCell?.imageView.image)
+        let viewModel = MovieDetailsControllerViewModel(movie: selectedMovie, image: selectedCell?.imageView.image)
+        let vc = MovieDetailsController(viewModel: viewModel)
         show(vc, sender: self)
     }
     
@@ -196,15 +187,5 @@ extension MovieController: UICollectionViewDelegateFlowLayout {
         24
     }
     
-    
-    
 }
-
-
-
-// MARK: - Preview
-//#Preview {
-//    UINavigationController(rootViewController: MovieController(movie: MovieModel.initial))
-//}
-
 

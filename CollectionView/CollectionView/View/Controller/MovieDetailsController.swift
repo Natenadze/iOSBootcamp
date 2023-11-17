@@ -10,32 +10,72 @@ import UIKit
 final class MovieDetailsController: UIViewController {
     
     // MARK: - Properties
-    private let movieTitle = UILabel()
-    var imageView = UIImageView()
-    private let imdbRating = UILabel()
+    let viewModel: MovieDetailsControllerViewModel
     
+    var imageView = UIImageView()
+    private let movieTitle = UILabel()
+    private let imdbRating = UILabel()
     private let runtime = UILabel()
     private let releaseDate = UILabel()
     private let genre = UILabel()
     private let director = UILabel()
     private let cast = UILabel  ()
-    private let descriptionText = UILabel  ()
+    private let descriptionText = UILabel()
+
     
-    private let imdbRatingLabel = UILabel()
-    private let runtimeLabel = UILabel()
-    private let releaseDateLabel = UILabel()
-    private let genreLabel = UILabel()
-    private let directorLabel = UILabel()
-    private let castLabel = UILabel()
+    // MARK: - UI Elements
+    let selectSessionButton = UIButton()
     
-    // stacks
+    private let imdbRatingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "IMDB"
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let runtimeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.text = "Runtime"
+        return label
+    }()
+    
+    private let releaseDateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.text = "Release"
+        return label
+    }()
+    
+    private let genreLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.text = "Genre"
+        return label
+    }()
+    
+    private let directorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.text = "Director"
+        return label
+    }()
+    
+    private let castLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.text = "Cast"
+        return label
+    }()
+    
+    // MARK: - Stacks
     private let imdbStack = UIStackView()
     private let detailsMainStack = UIStackView()
     private let detailsHorizontalStack = UIStackView()
     private let detailsLeftVerticalStack = UIStackView()
     private let detailsRightVerticalStack = UIStackView()
     
-    let selectSessionButton = UIButton()
     
     // MARK: - lifeCycle
     override func viewDidLoad() {
@@ -44,21 +84,18 @@ final class MovieDetailsController: UIViewController {
         layout()
     }
     
-    
-    // MARK: - Methods
-    
-    func configure(_ movie: MovieModel, image: UIImage?) {
-        self.movieTitle.text = movie.title
-        self.imageView.image = image
-        self.descriptionText.text  = movie.plot
-        self.imdbRating.text = movie.imdbRating
-        self.runtime.text = movie.runtime
-        self.releaseDate.text = movie.year
-        self.genre.text = movie.genre
-        self.director.text = movie.director
-        self.cast.text = movie.actors
+    // MARK: - init
+    init(viewModel: MovieDetailsControllerViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: - Methods
     @objc private func goBack() {
         navigationController?.popViewController(animated: true)
     }
@@ -72,35 +109,59 @@ extension MovieDetailsController {
     
     func style() {
         view.backgroundColor = .mainBackground
+        translateAutoResizingConstraints()
+        configureStacks()
+        configureAndUpdateProperties()
+        configureSelectSessionButton()
+        configureNavigationBar()
+    }
+    
+    func layout() {
+        addSubviews()
+        setupConstrains()
+    }
+}
+
+// MARK: - style methods
+extension MovieDetailsController {
+    
+    func translateAutoResizingConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         imdbStack.translatesAutoresizingMaskIntoConstraints = false
-        
         detailsMainStack.translatesAutoresizingMaskIntoConstraints = false
         detailsHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
         detailsLeftVerticalStack.translatesAutoresizingMaskIntoConstraints = false
         detailsRightVerticalStack.translatesAutoresizingMaskIntoConstraints = false
         selectSessionButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        //stacks
+    }
+    
+    func configureStacks() {
         imdbStack.axis = .vertical
         imdbStack.alignment = .center
-        
         detailsMainStack.axis = .vertical
         detailsMainStack.alignment = .leading
         detailsMainStack.spacing = 16
         
         detailsHorizontalStack.spacing = 32
+        
         detailsLeftVerticalStack.axis = .vertical
         detailsLeftVerticalStack.spacing = 12
+        
         detailsRightVerticalStack.axis = .vertical
         detailsRightVerticalStack.spacing = 12
-        
+    }
+    
+    func configureSelectSessionButton() {
+        selectSessionButton.setTitle("Select session", for: .normal)
+        selectSessionButton.backgroundColor = .orange
+        selectSessionButton.setTitleColor(.white, for: .normal)
+        selectSessionButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        selectSessionButton.layer.cornerRadius = 12
+    }   
+    
+    func configureAndUpdateProperties() {
         imageView.contentMode = .scaleAspectFit
-        
-        imdbRatingLabel.text = "IMDB"
-        imdbRatingLabel.textColor = .gray
-        imdbRatingLabel.font = .systemFont(ofSize: 16)
         
         imdbRating.textColor = .white
         imdbRating.font = .boldSystemFont(ofSize: 18)
@@ -108,30 +169,28 @@ extension MovieDetailsController {
         descriptionText.textColor = .white
         descriptionText.numberOfLines = 0
         
-
-        runtimeLabel.textColor = .gray
-        runtimeLabel.text = "Runtime"
-        releaseDateLabel.textColor = .gray
-        releaseDateLabel.text = "Release"
-        genreLabel.textColor = .gray
-        genreLabel.text = "Genre"
-        directorLabel.textColor = .gray
-        directorLabel.text = "Director"
-        castLabel.textColor = .gray
-        castLabel.text = "Cast"
+        movieTitle.text = viewModel.movie.title
+        imageView.image = viewModel.image
+        descriptionText.text  = viewModel.movie.plot
+        imdbRating.text = viewModel.movie.imdbRating
         
+        runtime.text = viewModel.movie.runtime
         runtime.textColor = .white
+        
+        releaseDate.text = viewModel.movie.year
         releaseDate.textColor = .white
+        
+        genre.text = viewModel.movie.genre
         genre.textColor = .white
+        
+        director.text = viewModel.movie.director
         director.textColor = .white
+        
+        cast.text = viewModel.movie.actors
         cast.textColor = .white
-        
-        selectSessionButton.setTitle("Select session", for: .normal)
-        selectSessionButton.backgroundColor = .orange
-        selectSessionButton.setTitleColor(.white, for: .normal)
-        selectSessionButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        selectSessionButton.layer.cornerRadius = 12
-        
+    }
+    
+    func configureNavigationBar() {
         navigationItem.title = movieTitle.text
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
@@ -139,12 +198,13 @@ extension MovieDetailsController {
         let customBackButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(goBack))
         customBackButton.tintColor = .gray
         navigationItem.leftBarButtonItem = customBackButton
-
-      
-
     }
+}
+
+// MARK: - layout methods
+extension MovieDetailsController {
     
-    func layout() {
+    func addSubviews() {
         view.addSubview(imageView)
         imdbStack.addArrangedSubview(imdbRating)
         imdbStack.addArrangedSubview(imdbRatingLabel)
@@ -170,7 +230,9 @@ extension MovieDetailsController {
         detailsMainStack.addArrangedSubview(detailsHorizontalStack)
         view.addSubview(detailsMainStack)
         view.addSubview(selectSessionButton)
-        
+    }
+    
+    func setupConstrains() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -189,7 +251,5 @@ extension MovieDetailsController {
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: selectSessionButton.trailingAnchor, multiplier: 2),
             selectSessionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-        
     }
 }
-

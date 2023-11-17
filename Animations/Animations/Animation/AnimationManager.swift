@@ -40,16 +40,12 @@ extension AnimationManager {
     
     private static func rotateLabel(label: UILabel) {
         
-        let initialTransform = label.transform
-        let rotatedTransform = initialTransform.rotated(by: .pi)
-        let counterRotatedTransform = rotatedTransform.rotated(by: -3.14)
-        
-        UIView.animate(withDuration: 3, delay: 0.0, options: .curveLinear, animations: {
-            label.transform = rotatedTransform
-        }) { _ in
-            UIView.animate(withDuration: 3, delay: 0.0, options: .curveLinear, animations: {
-                label.transform = counterRotatedTransform
-            }) { _ in
+        UIView.animate(withDuration: 3) {
+            label.transform = label.transform.rotated(by: .pi)
+        } completion: { _ in
+            UIView.animate(withDuration: 3) {
+                label.transform = label.transform.rotated(by: -3.14)
+            } completion: { _ in
                 rotateLabel(label: label)
             }
         }

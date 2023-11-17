@@ -18,9 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
         
-        let vc = MovieController()
-        let navVC = UINavigationController(rootViewController: vc)
-        window?.rootViewController = navVC
+        let viewModel = MovieControllerViewModel()
+        let viewController = MovieController(viewModel: viewModel)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        window?.rootViewController = navigationController
         
         return true
     }

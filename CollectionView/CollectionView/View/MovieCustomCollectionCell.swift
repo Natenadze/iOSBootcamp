@@ -11,8 +11,11 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let cellID = "MovieCustomCollectionCell"
+    private var isLiked: Bool = false
     
-
+    // MARK: - UI Elements
+    private let titleStackView = UIStackView()
+      
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,8 +37,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return label
     }()
     
-    private let titleStackView = UIStackView()
-       
+    
     private let title: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
@@ -50,8 +52,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         return label
     }()
     
-    private var isLiked: Bool = false
-    
+  
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -83,7 +84,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
                 }
             }
         }
-        
     }
   
     
@@ -103,8 +103,6 @@ extension MovieCustomCollectionCell {
         titleStackView.axis = .vertical
         titleStackView.backgroundColor = .collectionBackground
         titleStackView.distribution = .fillProportionally
-        
-      
     }
     
     func layout() {
