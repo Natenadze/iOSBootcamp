@@ -10,7 +10,7 @@ import UIKit
 final class MovieDetailsController: UIViewController {
     
     // MARK: - Properties
-    let viewModel: MovieDetailsControllerViewModel
+    private let viewModel: MovieDetailsControllerViewModel
     
     var imageView = UIImageView()
     private let movieTitle = UILabel()
@@ -24,7 +24,7 @@ final class MovieDetailsController: UIViewController {
 
     
     // MARK: - UI Elements
-    let selectSessionButton = UIButton()
+    private let selectSessionButton = UIButton()
     
     private let imdbRatingLabel: UILabel = {
         let label = UILabel()
@@ -96,6 +96,7 @@ final class MovieDetailsController: UIViewController {
     
     
     // MARK: - Methods
+    
     @objc private func goBack() {
         navigationController?.popViewController(animated: true)
     }
@@ -107,7 +108,7 @@ final class MovieDetailsController: UIViewController {
 
 extension MovieDetailsController {
     
-    func style() {
+    private func style() {
         view.backgroundColor = .mainBackground
         translateAutoResizingConstraints()
         configureStacks()
@@ -116,7 +117,7 @@ extension MovieDetailsController {
         configureNavigationBar()
     }
     
-    func layout() {
+    private func layout() {
         addSubviews()
         setupConstrains()
     }
@@ -125,7 +126,7 @@ extension MovieDetailsController {
 // MARK: - style methods
 extension MovieDetailsController {
     
-    func translateAutoResizingConstraints() {
+    private func translateAutoResizingConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         imdbStack.translatesAutoresizingMaskIntoConstraints = false
@@ -136,7 +137,7 @@ extension MovieDetailsController {
         selectSessionButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func configureStacks() {
+    private func configureStacks() {
         imdbStack.axis = .vertical
         imdbStack.alignment = .center
         detailsMainStack.axis = .vertical
@@ -152,7 +153,7 @@ extension MovieDetailsController {
         detailsRightVerticalStack.spacing = 12
     }
     
-    func configureSelectSessionButton() {
+    private func configureSelectSessionButton() {
         selectSessionButton.setTitle("Select session", for: .normal)
         selectSessionButton.backgroundColor = .orange
         selectSessionButton.setTitleColor(.white, for: .normal)
@@ -160,7 +161,7 @@ extension MovieDetailsController {
         selectSessionButton.layer.cornerRadius = 12
     }   
     
-    func configureAndUpdateProperties() {
+    private func configureAndUpdateProperties() {
         imageView.contentMode = .scaleAspectFit
         
         imdbRating.textColor = .white
@@ -190,7 +191,7 @@ extension MovieDetailsController {
         cast.textColor = .white
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationItem.title = movieTitle.text
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
@@ -204,7 +205,7 @@ extension MovieDetailsController {
 // MARK: - layout methods
 extension MovieDetailsController {
     
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(imageView)
         imdbStack.addArrangedSubview(imdbRating)
         imdbStack.addArrangedSubview(imdbRatingLabel)
@@ -232,7 +233,7 @@ extension MovieDetailsController {
         view.addSubview(selectSessionButton)
     }
     
-    func setupConstrains() {
+    private func setupConstrains() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

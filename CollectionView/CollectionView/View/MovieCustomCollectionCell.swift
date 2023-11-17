@@ -11,7 +11,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let cellID = "MovieCustomCollectionCell"
-    private var isLiked: Bool = false
     
     // MARK: - UI Elements
     private let titleStackView = UIStackView()
@@ -74,7 +73,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         updateMovieImage(imageURL: movie.poster)
     }
     
-    
+    // ეს ნაწილი cell ის ცალკე viewModel ში უნდა გამეტანა?
     func updateMovieImage(imageURL: String)  {
         guard let url = URL(string: imageURL) else { return }
         DispatchQueue.global().async {
@@ -86,7 +85,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         }
     }
   
-    
+    // ეს რეალურად საჭიროა აქ?
     override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = nil
@@ -106,13 +105,24 @@ extension MovieCustomCollectionCell {
     }
     
     func layout() {
+        addSubviews()
+        activateConstraints()
+    }
+}
+
+
+extension MovieCustomCollectionCell {
+    
+    private func addSubviews() {
         contentView.addSubview(imageView)
         contentView.addSubview(imdbRating)
         
         titleStackView.addArrangedSubview(title)
         titleStackView.addArrangedSubview(genreLabel)
         contentView.addSubview(titleStackView)
-        
+    }   
+    
+    private func activateConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

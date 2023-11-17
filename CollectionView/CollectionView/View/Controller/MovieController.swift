@@ -10,7 +10,7 @@ import UIKit
 final class MovieController: UIViewController {
     
     // MARK: - Properties
-    private var viewModel: MovieControllerViewModel
+    private let viewModel: MovieControllerViewModel
     
     
     // MARK: - UI Elements
@@ -129,7 +129,6 @@ extension MovieController {
             logoImageView.widthAnchor.constraint(equalToConstant: 48),
             
         ])
-        
     }
 }
 
@@ -163,10 +162,12 @@ extension MovieController: UICollectionViewDelegate {
         
         let selectedMovie = viewModel.movies[indexPath.row]
         let selectedCell = collectionView.cellForItem(at: indexPath) as? MovieCustomCollectionCell
-        
-        let viewModel = MovieDetailsControllerViewModel(movie: selectedMovie, image: selectedCell?.imageView.image)
-        let vc = MovieDetailsController(viewModel: viewModel)
-        show(vc, sender: self)
+        let viewModel = MovieDetailsControllerViewModel(
+            movie: selectedMovie,
+            image: selectedCell?.imageView.image
+        )
+        let detailsViewController = MovieDetailsController(viewModel: viewModel)
+        show(detailsViewController, sender: self)
     }
     
     

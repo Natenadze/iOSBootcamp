@@ -7,7 +7,7 @@
 
 import UIKit
 
-let apiKey = "33c3587a"
+let apiKey = ""
 
 
 // MARK: - Model
