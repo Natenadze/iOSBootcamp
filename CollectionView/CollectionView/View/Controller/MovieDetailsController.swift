@@ -19,7 +19,7 @@ final class MovieDetailsController: UIViewController {
     private let releaseDate = UILabel()
     private let genre = UILabel()
     private let director = UILabel()
-    private let cast = UILabel  ()
+    private let cast = UILabel()
     private let descriptionText = UILabel()
 
     
@@ -106,9 +106,9 @@ final class MovieDetailsController: UIViewController {
 
 // MARK: - Style & Layout
 
-extension MovieDetailsController {
+private extension MovieDetailsController {
     
-    private func style() {
+    func style() {
         view.backgroundColor = .mainBackground
         translateAutoResizingConstraints()
         configureStacks()
@@ -117,7 +117,7 @@ extension MovieDetailsController {
         configureNavigationBar()
     }
     
-    private func layout() {
+    func layout() {
         addSubviews()
         setupConstrains()
     }

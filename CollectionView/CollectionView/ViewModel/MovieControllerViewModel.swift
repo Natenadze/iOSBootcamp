@@ -16,9 +16,10 @@ class MovieControllerViewModel {
         Task { try await makeApiCall() }
     }
     
+    
     // MARK: - Methods
     func makeApiCall() async throws {
-        let urlStrings = MovieModel.initialUrls
+        let urlStrings = Constants.initialUrls
         
         for url in urlStrings {
             

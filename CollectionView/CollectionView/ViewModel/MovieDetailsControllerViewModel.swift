@@ -10,8 +10,8 @@ import UIKit
 class MovieDetailsControllerViewModel {
     
     // MARK: - Properties
-    let movie: MovieModel
-    let image: UIImage?
+    private let movie: MovieModel
+    private let image: UIImage?
     
     
     // MARK: - init

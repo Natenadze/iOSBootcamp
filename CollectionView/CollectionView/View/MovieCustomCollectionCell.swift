@@ -15,7 +15,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     // MARK: - UI Elements
     private let titleStackView = UIStackView()
       
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -64,6 +64,12 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
+    // MARK: - prepareForReuse
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = nil
+    }
+    
     
     // MARK: - Methods
     func configure(withMovie movie: MovieModel) {
@@ -73,7 +79,6 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         updateMovieImage(imageURL: movie.poster)
     }
     
-    // ეს ნაწილი cell ის ცალკე viewModel ში უნდა გამეტანა?
     func updateMovieImage(imageURL: String)  {
         guard let url = URL(string: imageURL) else { return }
         DispatchQueue.global().async {
@@ -85,15 +90,12 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
         }
     }
   
-    // ეს რეალურად საჭიროა აქ?
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.imageView.image = nil
-    }
+
    
 }
 
 
+// MARK: - Extensions
 extension MovieCustomCollectionCell {
      
     func cellStyle() {

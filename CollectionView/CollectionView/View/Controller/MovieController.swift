@@ -55,16 +55,7 @@ final class MovieController: UIViewController {
     }()
     
     
-    // MARK: - lifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-        style()
-        layout()
-    }
-    
     // MARK: - init
-    
     init(viewModel: MovieControllerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -74,21 +65,32 @@ final class MovieController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - lifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        style()
+        layout()
+    }
+    
+
+    
 }
 
 
-// MARK: - extensions
+// MARK: - setup extension
 
-extension MovieController {
+private extension MovieController {
     
     // MARK: - helper Methods
-    private func setup()  {
+    func setup()  {
         view.backgroundColor = .systemBlue
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         let barButton = UIBarButtonItem(customView: profileButton)
         navigationItem.rightBarButtonItem = barButton
         
@@ -100,7 +102,7 @@ extension MovieController {
 
 // MARK: - Style & Layout extension
 
-extension MovieController {
+private extension MovieController {
     
     
     func style() {
