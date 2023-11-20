@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieDetailsControllerViewModel {
+final class MovieDetailsControllerViewModel {
     
     // MARK: - Properties
     private let movie: MovieModel
@@ -19,5 +19,15 @@ class MovieDetailsControllerViewModel {
         self.movie = movie
         self.image = image
     }
+    
+    // MARK: - Methods
+    func getMovie() -> MovieModel {
+        movie
+    } 
+    
+    func getImage() -> UIImage? {
+        image
+    }
+
      
 }

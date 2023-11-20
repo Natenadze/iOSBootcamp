@@ -9,7 +9,7 @@ import Foundation
 
 class Constants {
     
-    static let apiKey = ""
+    static let apiKey = "33c3587a"
     
     static let initialUrls = [
         "https://www.omdbapi.com/?t=Titanic&apikey=\(apiKey)",

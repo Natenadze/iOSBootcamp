@@ -170,24 +170,27 @@ extension MovieDetailsController {
         descriptionText.textColor = .white
         descriptionText.numberOfLines = 0
         
-        movieTitle.text = viewModel.movie.title
-        imageView.image = viewModel.image
-        descriptionText.text  = viewModel.movie.plot
-        imdbRating.text = viewModel.movie.imdbRating
+        imageView.image = viewModel.getImage()
         
-        runtime.text = viewModel.movie.runtime
+        let movie = viewModel.getMovie()
+        movieTitle.text = movie.title
+        
+        descriptionText.text  = movie.plot
+        imdbRating.text = movie.imdbRating
+        
+        runtime.text = movie.runtime
         runtime.textColor = .white
         
-        releaseDate.text = viewModel.movie.year
+        releaseDate.text = movie.year
         releaseDate.textColor = .white
         
-        genre.text = viewModel.movie.genre
+        genre.text = movie.genre
         genre.textColor = .white
         
-        director.text = viewModel.movie.director
+        director.text = movie.director
         director.textColor = .white
         
-        cast.text = viewModel.movie.actors
+        cast.text = movie.actors
         cast.textColor = .white
     }
     

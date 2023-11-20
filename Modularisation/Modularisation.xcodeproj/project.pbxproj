@@ -8,18 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		5D6B7EC52B0A26DD00ACCE46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EC42B0A26DD00ACCE46 /* AppDelegate.swift */; };
-		5D6B7EC92B0A26DD00ACCE46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EC82B0A26DD00ACCE46 /* ViewController.swift */; };
+		5D6B7EC92B0A26DD00ACCE46 /* FactListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EC82B0A26DD00ACCE46 /* FactListController.swift */; };
 		5D6B7ECE2B0A26DF00ACCE46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D6B7ECD2B0A26DF00ACCE46 /* Assets.xcassets */; };
 		5D6B7ED12B0A26DF00ACCE46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D6B7ECF2B0A26DF00ACCE46 /* LaunchScreen.storyboard */; };
+		5D6B7EDA2B0A2C6B00ACCE46 /* NatenWorking in Frameworks */ = {isa = PBXBuildFile; productRef = 5D6B7ED92B0A2C6B00ACCE46 /* NatenWorking */; };
+		5D6B7EDE2B0A568500ACCE46 /* CatFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EDD2B0A568500ACCE46 /* CatFact.swift */; };
+		5D6B7EE12B0A573A00ACCE46 /* FactListControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EE02B0A573A00ACCE46 /* FactListControllerViewModel.swift */; };
+		5D6B7EE42B0A579300ACCE46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6B7EE32B0A579300ACCE46 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5D6B7EC12B0A26DD00ACCE46 /* Modularisation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modularisation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D6B7EC42B0A26DD00ACCE46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D6B7EC82B0A26DD00ACCE46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5D6B7EC82B0A26DD00ACCE46 /* FactListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactListController.swift; sourceTree = "<group>"; };
 		5D6B7ECD2B0A26DF00ACCE46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D6B7ED02B0A26DF00ACCE46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D6B7ED22B0A26DF00ACCE46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D6B7EDD2B0A568500ACCE46 /* CatFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatFact.swift; sourceTree = "<group>"; };
+		5D6B7EE02B0A573A00ACCE46 /* FactListControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactListControllerViewModel.swift; sourceTree = "<group>"; };
+		5D6B7EE32B0A579300ACCE46 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D6B7EDA2B0A2C6B00ACCE46 /* NatenWorking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,13 +60,64 @@
 		5D6B7EC32B0A26DD00ACCE46 /* Modularisation */ = {
 			isa = PBXGroup;
 			children = (
-				5D6B7EC42B0A26DD00ACCE46 /* AppDelegate.swift */,
-				5D6B7EC82B0A26DD00ACCE46 /* ViewController.swift */,
+				5D6B7EDC2B0A565C00ACCE46 /* App */,
+				5D6B7EDF2B0A568A00ACCE46 /* Model */,
+				5D6B7EE82B0A6BF700ACCE46 /* Scene */,
+				5D6B7EE22B0A576800ACCE46 /* Constants */,
 				5D6B7ECD2B0A26DF00ACCE46 /* Assets.xcassets */,
 				5D6B7ECF2B0A26DF00ACCE46 /* LaunchScreen.storyboard */,
 				5D6B7ED22B0A26DF00ACCE46 /* Info.plist */,
 			);
 			path = Modularisation;
+			sourceTree = "<group>";
+		};
+		5D6B7EDB2B0A565200ACCE46 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EC82B0A26DD00ACCE46 /* FactListController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5D6B7EDC2B0A565C00ACCE46 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EC42B0A26DD00ACCE46 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5D6B7EDF2B0A568A00ACCE46 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EDD2B0A568500ACCE46 /* CatFact.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5D6B7EE22B0A576800ACCE46 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EE32B0A579300ACCE46 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		5D6B7EE62B0A5A4A00ACCE46 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EE02B0A573A00ACCE46 /* FactListControllerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5D6B7EE82B0A6BF700ACCE46 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				5D6B7EDB2B0A565200ACCE46 /* Controllers */,
+				5D6B7EE62B0A5A4A00ACCE46 /* ViewModel */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +136,9 @@
 			dependencies = (
 			);
 			name = Modularisation;
+			packageProductDependencies = (
+				5D6B7ED92B0A2C6B00ACCE46 /* NatenWorking */,
+			);
 			productName = Modularisation;
 			productReference = 5D6B7EC12B0A26DD00ACCE46 /* Modularisation.app */;
 			productType = "com.apple.product-type.application";
@@ -105,6 +167,9 @@
 				Base,
 			);
 			mainGroup = 5D6B7EB82B0A26DD00ACCE46;
+			packageReferences = (
+				5D6B7ED82B0A2C6B00ACCE46 /* XCRemoteSwiftPackageReference "NatenWorking" */,
+			);
 			productRefGroup = 5D6B7EC22B0A26DD00ACCE46 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,8 +196,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D6B7EC92B0A26DD00ACCE46 /* ViewController.swift in Sources */,
+				5D6B7EE42B0A579300ACCE46 /* Constants.swift in Sources */,
+				5D6B7EC92B0A26DD00ACCE46 /* FactListController.swift in Sources */,
 				5D6B7EC52B0A26DD00ACCE46 /* AppDelegate.swift in Sources */,
+				5D6B7EE12B0A573A00ACCE46 /* FactListControllerViewModel.swift in Sources */,
+				5D6B7EDE2B0A568500ACCE46 /* CatFact.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +413,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5D6B7ED82B0A2C6B00ACCE46 /* XCRemoteSwiftPackageReference "NatenWorking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Natenadze/NatenWorking.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5D6B7ED92B0A2C6B00ACCE46 /* NatenWorking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D6B7ED82B0A2C6B00ACCE46 /* XCRemoteSwiftPackageReference "NatenWorking" */;
+			productName = NatenWorking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5D6B7EB92B0A26DD00ACCE46 /* Project object */;
 }

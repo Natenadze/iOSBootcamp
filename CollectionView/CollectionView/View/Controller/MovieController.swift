@@ -73,9 +73,7 @@ final class MovieController: UIViewController {
         style()
         layout()
     }
-    
 
-    
 }
 
 
@@ -83,11 +81,12 @@ final class MovieController: UIViewController {
 
 private extension MovieController {
     
-    // MARK: - helper Methods
     func setup()  {
         view.backgroundColor = .systemBlue
         collectionView.delegate = self
         collectionView.dataSource = self
+        viewModel.delegate = self
+        viewModel.viewDidLoad()
     }
     
     func setupNavigationBar() {
@@ -141,7 +140,7 @@ private extension MovieController {
 extension MovieController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.movies.count
+        viewModel.movieCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -152,7 +151,7 @@ extension MovieController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(withMovie: viewModel.movies[indexPath.row])
+        cell.configure(withMovie: viewModel.getMovie(indexPath.row))
         return cell
     }
 }
@@ -160,19 +159,10 @@ extension MovieController: UICollectionViewDataSource {
 // MARK: - collection Delegate
 
 extension MovieController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let selectedMovie = viewModel.movies[indexPath.row]
-        let selectedCell = collectionView.cellForItem(at: indexPath) as? MovieCustomCollectionCell
-        let viewModel = MovieDetailsControllerViewModel(
-            movie: selectedMovie,
-            image: selectedCell?.imageView.image
-        )
-        let detailsViewController = MovieDetailsController(viewModel: viewModel)
-        show(detailsViewController, sender: self)
+        viewModel.didSelectCollectionCell(at: indexPath)
     }
-    
-    
 }
 
 extension MovieController: UICollectionViewDelegateFlowLayout {
@@ -192,3 +182,22 @@ extension MovieController: UICollectionViewDelegateFlowLayout {
     
 }
 
+
+extension MovieController: MovieControllerDelegate {
+    
+    func networkingDone() {
+        self.collectionView.reloadData()
+    }
+    
+    func handleDidSelectCollectionCell(movie: MovieModel) {
+        
+        let viewModel = MovieDetailsControllerViewModel(
+            movie: movie,
+            image: UIImage()
+        )
+        
+        let detailsViewController = MovieDetailsController(viewModel: viewModel)
+        show(detailsViewController, sender: self)
+    }
+
+}

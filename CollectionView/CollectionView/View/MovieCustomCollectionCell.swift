@@ -15,7 +15,7 @@ final class MovieCustomCollectionCell: UICollectionViewCell {
     // MARK: - UI Elements
     private let titleStackView = UIStackView()
       
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
